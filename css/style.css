@@ -4,9 +4,15 @@
     --bg-light: #f9f9f9;
     --text-main: #1a1a1a;
     --text-muted: #666;
+    --card-bg: #f8f8f8; /* Color de fondo del "marco" de la obra */
+    --card-border: #e5e5e5;
     --accent: #2c3e50;
-    --font-heading: 'Playfair Display', serif; /* Elegante para títulos */
-    --font-body: 'Montserrat', sans-serif;    /* Limpia para UI */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en el menú */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,10 +33,11 @@ body {
     padding: 1.5rem 3rem;
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(5px);
     z-index: 100;
     border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .nav-brand {
@@ -80,7 +87,7 @@ body {
     font-size: 0.9rem;
 }
 
-/* --- SECCIONES Y GRID --- */
+/* --- SECCIONES --- */
 .collection-section {
     padding: 4rem 3rem;
     max-width: 1400px;
@@ -102,25 +109,43 @@ body {
 
 .section-header p { color: var(--text-muted); font-size: 0.95rem; }
 
-/* Grid Uniforme Centrado */
+/* --- GRID (Modificado para alinear arriba) --- */
 .grid-uniforme {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem 2rem;
-    justify-content: center; 
-    justify-items: center;
+    /* Ajustamos el ancho mínimo para que se vean bien */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    
+    /* ESTO ES LA CLAVE: 'start' evita que las tarjetas se estiren.
+       Cada una tendrá la altura natural de su contenido. */
+    align-items: start; 
+    
+    justify-content: center;
 }
 
-/* --- TARJETAS DE PRODUCTO (Formato Original) --- */
+/* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
 .product-card {
     width: 100%;
-    max-width: 450px; 
+    max-width: 400px; /* Un poco más angostas para elegancia */
     cursor: pointer;
-    /* Flex para que la tarjeta ocupe el alto completo si es necesario */
+    
+    /* EL MARCO: Fondo gris suave y borde */
+    background-color: var(--card-bg); 
+    border: 1px solid var(--card-border);
+    padding: 15px; /* Espacio interno (el "aire" del marco) */
+    
+    /* Quitamos height: 100% para que el texto suba */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%; 
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación elegante */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background-color: #fff; /* Se ilumina un poco al pasar el mouse */
+    border-color: #d0d0d0;
 }
 
 .img-container {
@@ -128,19 +153,14 @@ body {
     overflow: hidden;
     margin-bottom: 1rem;
     width: 100%;
-    /* Sin aspect-ratio para respetar la forma original */
 }
 
 .product-card img {
     width: 100%;
-    height: auto;   /* La altura se adapta a la obra original */
-    display: block; 
-    border-radius: 4px;
-    transition: transform 0.5s ease;
-}
-
-.product-card:hover img {
-    transform: scale(1.03); /* Zoom suave */
+    height: auto; 
+    display: block;
+    /* Borde muy sutil en la imagen misma */
+    border-radius: 1px; 
 }
 
 /* Etiquetas (Vendido, Nuevo) */
@@ -161,17 +181,24 @@ body {
 .badge.vendido { background: #e0e0e0; color: #777; }
 .badge.reservado { background: #fff3cd; color: #856404; }
 
-.info { text-align: left; }
+/* Ajustes de Texto dentro del marco */
+.info {
+    text-align: left;
+    padding-top: 0.2rem; 
+}
 
 .info h3 {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 500;
-    margin-bottom: 0.2rem;
+    font-family: var(--font-heading);
+    margin-bottom: 0.4rem;
+    color: #222;
 }
 
 .price {
     font-size: 0.9rem;
     color: var(--text-muted);
+    font-family: var(--font-body);
 }
 
 .price.sold { text-decoration: line-through; opacity: 0.6; }
@@ -182,7 +209,7 @@ footer {
     color: #ffffff;
     text-align: center;
     padding: 5rem 1rem;
-    margin-top: 4rem;
+    margin-top: 5rem;
 }
 
 footer .btn-outline {
@@ -209,10 +236,11 @@ footer .socials {
     color: #dddddd;
 }
 
-/* Estilo para el link de Instagram con Ícono */
+/* Link de Instagram Alineado */
 footer .socials a {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     color: #ffffff;
     text-decoration: none;
@@ -237,25 +265,25 @@ footer .copyright {
     display: none; 
     position: fixed; 
     z-index: 1000; 
-    padding-top: 50px; 
+    padding-top: 40px; 
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
     overflow: auto; 
-    background-color: rgba(0,0,0,0.9); 
-    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.92); 
+    backdrop-filter: blur(8px);
 }
 
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 90%;
+    max-width: 95%;
     max-height: 85vh;
     width: auto;
     height: auto;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    border: 2px solid #fff;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    border: 1px solid #333;
     animation-name: zoom;
     animation-duration: 0.3s;
 }
@@ -267,40 +295,34 @@ footer .copyright {
     max-width: 700px;
     text-align: center;
     color: #ccc;
-    padding: 10px 0;
-    height: 150px;
+    padding: 15px 0;
     font-family: var(--font-heading);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     letter-spacing: 1px;
 }
 
 .close {
     position: absolute;
-    top: 15px;
+    top: 20px;
     right: 35px;
     color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
+    font-size: 45px;
+    font-weight: 100;
     transition: 0.3s;
     cursor: pointer;
     z-index: 1001;
+    line-height: 1;
 }
 
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-}
+.close:hover { color: #bbb; }
 
 @keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
+    from {transform:scale(0.95); opacity: 0;} 
+    to {transform:scale(1); opacity: 1;}
 }
 
 @media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
+    .modal-content { width: 100%; }
 }
 
 /* --- FOTO DE PERFIL ARTISTA --- */
@@ -310,13 +332,14 @@ footer .copyright {
     object-fit: cover;
     border-radius: 50%;
     margin: 0 auto 2rem;
-    border: 3px solid #fff;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 4px solid #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
 }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .navbar { padding: 1rem; flex-direction: column; gap: 1rem; }
-    .hero h1 { font-size: 2rem; }
-    .collection-section { padding: 3rem 1rem; }
-} 
+    .hero h1 { font-size: 2.2rem; }
+    .collection-section { padding: 3rem 1.5rem; }
+    .grid-uniforme { gap: 1.5rem; }
+}
