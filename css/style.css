@@ -126,16 +126,15 @@ body {
 /* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
 .product-card {
     width: 100%;
-    max-width: 400px; 
-    
-    /* ESTA ES LA LÍNEA MÁGICA PARA CENTRAR LA TARJETA EN LA PANTALLA: */
-    margin: 0 auto; 
-    
+    max-width: 400px; /* Un poco más angostas para elegancia */
     cursor: pointer;
+    
+    /* EL MARCO: Fondo gris suave y borde */
     background-color: var(--card-bg); 
     border: 1px solid var(--card-border);
-    padding: 15px;
+    padding: 15px; /* Espacio interno (el "aire" del marco) */
     
+    /* Quitamos height: 100% para que el texto suba */
     display: flex;
     flex-direction: column;
     
@@ -345,82 +344,47 @@ footer .copyright {
     .grid-uniforme { gap: 1.5rem; }
 }
 
-/* =========================================
-   MEJORAS RESPONSIVE (MÓVIL Y TABLET)
-   Agrega esto al final de tu style.css
-   ========================================= */
+/* --- ESTILOS DEL MENÚ DESPLEGABLE (DROPDOWN) --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-@media (max-width: 768px) {
-    /* 1. MENÚ ADAPTABLE */
-    .navbar {
-        flex-direction: column; /* Pone el logo arriba y links abajo */
-        padding: 1rem 0.5rem;
-        gap: 1rem;
-    }
+.dropdown-content {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 200px; /* Ancho del menú desplegado */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1000; /* Asegura que flote sobre las fotos */
+    border-radius: 4px;
+    padding: 10px 0;
+    top: 100%; /* Aparece justo debajo del botón */
+    left: 0;
+    border: 1px solid #eee;
+}
 
-    .nav-links {
-        justify-content: center;
-        flex-wrap: wrap; /* Si no caben en una línea, bajan a la siguiente */
-        gap: 0.8rem;     /* Reduce el espacio entre botones */
-        width: 100%;
-        padding: 0;
-    }
-    
-    .nav-links a {
-        font-size: 0.75rem; /* Letra un poco más chica para que quepan */
-        padding: 5px;
-        display: inline-block;
-    }
+.dropdown-content a {
+    color: var(--text-main);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f9f9f9;
+}
 
-    /* 2. TIPOGRAFÍA MÁS AMIGABLE */
-    .hero {
-        padding: 4rem 1rem 2rem; /* Menos espacio arriba */
-    }
-    
-    .hero h1 {
-        font-size: 2rem; /* Título más controlado */
-        line-height: 1.2;
-    }
-    
-    .section-header h2 {
-        font-size: 1.7rem;
-    }
-    
-    .section-header p {
-        font-size: 0.9rem;
-        padding: 0 1rem; /* Margen para que no pegue con el borde */
-    }
+.dropdown-content a:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}
 
-    /* 3. GRILLA DE OBRAS (1 Columna en Celular) */
-    .collection-section {
-        padding: 2.5rem 1rem; /* Aprovechar más el ancho de la pantalla */
-    }
+/* Mostrar el menú al pasar el mouse sobre "Series de Acuarelas" */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-    .grid-uniforme {
-        /* Forzamos 1 sola columna para que la obra se vea GRANDE */
-        grid-template-columns: 1fr; 
-        gap: 2.5rem;
-    }
-
-    .product-card {
-        max-width: 100%; /* La tarjeta usa todo el ancho disponible */
-    }
-
-    /* 4. MODAL / LIGHTBOX EN MÓVIL */
-    .modal-content {
-        max-width: 95%; /* Casi todo el ancho */
-        margin-top: 20vh; /* Bajarlo un poco para que no pegue arriba */
-    }
-
-    .close {
-        top: 10px;
-        right: 15px;
-        font-size: 35px;
-        background: rgba(0,0,0,0.5); /* Fondo oscuro para que se vea la X */
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 40px; /* Centrar la X verticalmente */
-    }
+/* Ajuste visual para la flechita */
+.dropbtn {
+    cursor: default; /* Para indicar que es un menú */
 }
