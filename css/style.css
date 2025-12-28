@@ -102,45 +102,45 @@ body {
 
 .section-header p { color: var(--text-muted); font-size: 0.95rem; }
 
-/* Grid Uniforme (Tipo E-commerce) */
+/* Grid Uniforme Centrado */
 .grid-uniforme {
     display: grid;
-    /* Usamos auto-fit en lugar de auto-fill para mejor distribución */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem 2rem;
-    
-    /* ESTAS SON LAS LÍNEAS MÁGICAS PARA CENTRAR: */
     justify-content: center; 
-    justify-items: center; /* Centra cada tarjeta dentro de su celda si sobra espacio */
+    justify-items: center;
 }
 
+/* --- TARJETAS DE PRODUCTO (Formato Original) --- */
 .product-card {
     width: 100%;
-    max-width: 450px; /* Evita que la tarjeta sea excesivamente ancha */
-}
-
-/* --- TARJETAS DE PRODUCTO --- */
-.product-card {
-    group: hover;
+    max-width: 450px; 
     cursor: pointer;
+    /* Flex para que la tarjeta ocupe el alto completo si es necesario */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; 
 }
 
 .img-container {
     position: relative;
     overflow: hidden;
     margin-bottom: 1rem;
-    aspect-ratio: 1 / 1; /* Cuadrado o 3/4 según prefieras */
+    width: 100%;
+    /* Sin aspect-ratio para respetar la forma original */
 }
 
 .product-card img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;   /* La altura se adapta a la obra original */
+    display: block; 
+    border-radius: 4px;
     transition: transform 0.5s ease;
 }
 
 .product-card:hover img {
-    transform: scale(1.05); /* Zoom suave al pasar mouse */
+    transform: scale(1.03); /* Zoom suave */
 }
 
 /* Etiquetas (Vendido, Nuevo) */
@@ -154,6 +154,8 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .badge.vendido { background: #e0e0e0; color: #777; }
@@ -176,20 +178,19 @@ body {
 
 /* --- FOOTER (Estilo Oscuro) --- */
 footer {
-    background-color: #1a1a1a; /* Gris muy oscuro (casi negro) */
-    color: #ffffff;            /* Letras blancas */
+    background-color: #1a1a1a;
+    color: #ffffff;
     text-align: center;
     padding: 5rem 1rem;
     margin-top: 4rem;
 }
 
-/* Ajustamos el botón para que resalte en fondo oscuro */
 footer .btn-outline {
     display: inline-block;
-    border: 1px solid #ffffff; /* Borde blanco */
+    border: 1px solid #ffffff;
     padding: 10px 25px;
     text-decoration: none;
-    color: #ffffff;            /* Texto blanco */
+    color: #ffffff;
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 1px;
@@ -198,59 +199,60 @@ footer .btn-outline {
 }
 
 footer .btn-outline:hover {
-    background: #ffffff;       /* Fondo blanco al pasar el mouse */
-    color: #1a1a1a;            /* Texto oscuro */
+    background: #ffffff;
+    color: #1a1a1a;
 }
 
-/* Ajuste para los textos secundarios */
 footer .socials {
     margin-bottom: 2rem;
     font-size: 0.9rem;
-    color: #dddddd; /* Blanco un poco apagado */
+    color: #dddddd;
+}
+
+/* Estilo para el link de Instagram con Ícono */
+footer .socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+footer .socials a:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
 }
 
 footer .copyright {
     font-size: 0.8rem;
-    color: #888888; /* Gris medio para el copyright */
+    color: #888888;
 }
 
-footer .socials a {
-    color: #ffffff;       /* Texto blanco */
-    text-decoration: none; /* Sin subrayado */
-    font-weight: 500;
-    font-size: 1.1rem;    /* Un poco más grande */
-    letter-spacing: 1px;
-    transition: opacity 0.3s;
-}
-
-footer .socials a:hover {
-    opacity: 0.7;         /* Efecto sutil al pasar el mouse */
-    text-decoration: underline;
-}
-
-/* --- ESTILOS DEL LIGHTBOX (MODAL) --- */
+/* --- LIGHTBOX (MODAL) --- */
 .modal {
-    display: none; /* Oculto por defecto */
+    display: none; 
     position: fixed; 
-    z-index: 1000; /* Por encima de todo */
+    z-index: 1000; 
     padding-top: 50px; 
     left: 0;
     top: 0;
     width: 100%; 
     height: 100%; 
     overflow: auto; 
-    background-color: rgb(0,0,0); /* Fallback */
-    background-color: rgba(0,0,0,0.9); /* Negro con opacidad */
-    backdrop-filter: blur(5px); /* Efecto borroso elegante de fondo */
+    background-color: rgba(0,0,0,0.9); 
+    backdrop-filter: blur(5px);
 }
 
-/* La imagen dentro del modal */
 .modal-content {
     margin: auto;
     display: block;
     max-width: 90%;
-    max-height: 85vh; /* Ocupa el 85% del alto de la pantalla como máximo */
-    width: auto;      /* Esto mantiene la proporción original */
+    max-height: 85vh;
+    width: auto;
     height: auto;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     border: 2px solid #fff;
@@ -258,7 +260,6 @@ footer .socials a:hover {
     animation-duration: 0.3s;
 }
 
-/* Título de la obra abajo */
 #caption {
     margin: auto;
     display: block;
@@ -273,7 +274,6 @@ footer .socials a:hover {
     letter-spacing: 1px;
 }
 
-/* Botón de cerrar (X) */
 .close {
     position: absolute;
     top: 15px;
@@ -290,16 +290,13 @@ footer .socials a:hover {
 .close:focus {
     color: #bbb;
     text-decoration: none;
-    cursor: pointer;
 }
 
-/* Animación de Zoom al abrir */
 @keyframes zoom {
     from {transform:scale(0)} 
     to {transform:scale(1)}
 }
 
-/* Ajuste para móviles */
 @media only screen and (max-width: 700px){
     .modal-content {
         width: 100%;
@@ -308,11 +305,18 @@ footer .socials a:hover {
 
 /* --- FOTO DE PERFIL ARTISTA --- */
 .artist-portrait {
-    width: 180px;           /* Tamaño ideal, ni muy grande ni muy chica */
+    width: 180px;
     height: 180px;
-    object-fit: cover;      /* Evita que la cara se deforme si la foto no es cuadrada */
-    border-radius: 50%;     /* Esto la hace redonda (círculo perfecto) */
-    margin: 0 auto 2rem;    /* Centrada y con espacio abajo */
-    border: 3px solid #fff; /* Un borde blanco fino queda muy "fino" */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Sombra suave para darle relieve */
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    border: 3px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .navbar { padding: 1rem; flex-direction: column; gap: 1rem; }
+    .hero h1 { font-size: 2rem; }
+    .collection-section { padding: 3rem 1rem; }
+} 
