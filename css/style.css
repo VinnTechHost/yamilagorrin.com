@@ -126,15 +126,16 @@ body {
 /* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
 .product-card {
     width: 100%;
-    max-width: 400px; /* Un poco más angostas para elegancia */
-    cursor: pointer;
+    max-width: 400px; 
     
-    /* EL MARCO: Fondo gris suave y borde */
+    /* ESTA ES LA LÍNEA MÁGICA PARA CENTRAR LA TARJETA EN LA PANTALLA: */
+    margin: 0 auto; 
+    
+    cursor: pointer;
     background-color: var(--card-bg); 
     border: 1px solid var(--card-border);
-    padding: 15px; /* Espacio interno (el "aire" del marco) */
+    padding: 15px;
     
-    /* Quitamos height: 100% para que el texto suba */
     display: flex;
     flex-direction: column;
     
@@ -342,4 +343,84 @@ footer .copyright {
     .hero h1 { font-size: 2.2rem; }
     .collection-section { padding: 3rem 1.5rem; }
     .grid-uniforme { gap: 1.5rem; }
+}
+
+/* =========================================
+   MEJORAS RESPONSIVE (MÓVIL Y TABLET)
+   Agrega esto al final de tu style.css
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. MENÚ ADAPTABLE */
+    .navbar {
+        flex-direction: column; /* Pone el logo arriba y links abajo */
+        padding: 1rem 0.5rem;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap; /* Si no caben en una línea, bajan a la siguiente */
+        gap: 0.8rem;     /* Reduce el espacio entre botones */
+        width: 100%;
+        padding: 0;
+    }
+    
+    .nav-links a {
+        font-size: 0.75rem; /* Letra un poco más chica para que quepan */
+        padding: 5px;
+        display: inline-block;
+    }
+
+    /* 2. TIPOGRAFÍA MÁS AMIGABLE */
+    .hero {
+        padding: 4rem 1rem 2rem; /* Menos espacio arriba */
+    }
+    
+    .hero h1 {
+        font-size: 2rem; /* Título más controlado */
+        line-height: 1.2;
+    }
+    
+    .section-header h2 {
+        font-size: 1.7rem;
+    }
+    
+    .section-header p {
+        font-size: 0.9rem;
+        padding: 0 1rem; /* Margen para que no pegue con el borde */
+    }
+
+    /* 3. GRILLA DE OBRAS (1 Columna en Celular) */
+    .collection-section {
+        padding: 2.5rem 1rem; /* Aprovechar más el ancho de la pantalla */
+    }
+
+    .grid-uniforme {
+        /* Forzamos 1 sola columna para que la obra se vea GRANDE */
+        grid-template-columns: 1fr; 
+        gap: 2.5rem;
+    }
+
+    .product-card {
+        max-width: 100%; /* La tarjeta usa todo el ancho disponible */
+    }
+
+    /* 4. MODAL / LIGHTBOX EN MÓVIL */
+    .modal-content {
+        max-width: 95%; /* Casi todo el ancho */
+        margin-top: 20vh; /* Bajarlo un poco para que no pegue arriba */
+    }
+
+    .close {
+        top: 10px;
+        right: 15px;
+        font-size: 35px;
+        background: rgba(0,0,0,0.5); /* Fondo oscuro para que se vea la X */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 40px; /* Centrar la X verticalmente */
+    }
 }
