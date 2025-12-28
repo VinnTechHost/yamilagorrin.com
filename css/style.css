@@ -1,0 +1,142 @@
+/* --- VARIABLES DE DISEÑO (Basadas en tu imagen) --- */
+        :root {
+            --bg-color: #F0F4F8; /* Bruma suave */
+            --card-bg: #ffffff;
+            --text-main: #2C3E50; /* Azul acero oscuro */
+            --text-light: #5D6D7E;
+            --accent: #6E7B8B; /* Gris roca */
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        /* --- HEADER / HERO --- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* --- OBRA DESTACADA (HERO IMAGE) --- */
+        .hero-image-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px; /* Bordes sutiles */
+        }
+
+        /* --- GALERÍA GRID --- */
+        .gallery-section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .art-card {
+            background: var(--card-bg);
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+        }
+
+        .art-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover; /* Recorta para que encaje uniformemente */
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1rem;
+            filter: grayscale(10%); /* Desatura un poco para unificar tono */
+            transition: filter 0.3s;
+        }
+
+        .art-card:hover img {
+            filter: grayscale(0%);
+        }
+
+        .art-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .art-info p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* --- FOOTER / CONTACTO --- */
+        footer {
+            background-color: #fff;
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e1e8ed;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 30px;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .btn-contact:hover {
+            background-color: var(--text-main);
+            color: #fff;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero-image-container { margin: 1rem auto; }
+        }
