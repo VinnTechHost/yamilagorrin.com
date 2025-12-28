@@ -3,61 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Arte | Acuarelas</title>
+    <title>Yamila Gorrin | Galería Oficial</title>
+    <link rel="stylesheet" href="css/style.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>YAMILA GORRIN</h1>
-        <p class="subtitle">Acuarelas & Atmósferas</p>
+    <nav class="navbar">
+        <div class="nav-brand">YAMILA GORRIN</div>
+        <ul class="nav-links">
+            <li><a href="#plein-air">Plein Air</a></li>
+            <li><a href="#estudio">Estudio</a></li>
+            <li><a href="#bocetos">Bocetos</a></li>
+            <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Atmósferas y Silencios</h1>
+            <p>Acuarela contemporánea</p>
+        </div>
     </header>
 
-    <div class="hero-image-container">
-        <img src="img/Valparaiso_Plein_air_Yamila_Gorrin.jpg" alt="Acuarela Valparaíso Plein Air" class="hero-image">
-    </div>
+    <section id="plein-air" class="collection-section">
+        <div class="section-header">
+            <h2>Plein Air 2024</h2>
+            <p>Obras capturadas en vivo, dialogando con la luz del momento.</p>
+        </div>
+        
+        <div class="grid-uniforme">
+            <article class="product-card">
+                <div class="img-container">
+                    <img src="img/Valparaiso_Plein_air_Yamila_Gorrin.jpg" alt="Valparaíso">
+                    <span class="badge disponible">Disponible</span>
+                </div>
+                <div class="info">
+                    <h3>Luz de Valparaíso</h3>
+                    <p class="price">350 €</p>
+                </div>
+            </article>
 
-    <section class="gallery-section">
-        <div class="gallery-grid">
-            
-            <article class="art-card">
-                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=800&auto=format&fit=crop" alt="Obra 1">
-                <div class="art-info">
+            <article class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800" alt="Obra">
+                    <span class="badge vendido">Vendido</span>
+                </div>
+                <div class="info">
                     <h3>Horizonte Lejano</h3>
-                    <p>Acuarela sobre papel - 2024</p>
+                    <p class="price sold">Vendido</p>
                 </div>
             </article>
 
-            <article class="art-card">
-                <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?q=80&w=800&auto=format&fit=crop" alt="Obra 2">
-                <div class="art-info">
+             <article class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?auto=format&fit=crop&w=800" alt="Obra">
+                </div>
+                <div class="info">
                     <h3>Bruma Matinal</h3>
-                    <p>Acuarela y Tinta - 2023</p>
+                    <p class="price">280 €</p>
                 </div>
             </article>
-
-            <article class="art-card">
-                <img src="https://images.unsplash.com/photo-1629196911514-cfd8d628b485?q=80&w=800&auto=format&fit=crop" alt="Obra 3">
-                <div class="art-info">
-                    <h3>Reflejos del Puerto</h3>
-                    <p>Acuarela sobre grano grueso - 2025</p>
-                </div>
-            </article>
-
-            </div>
+        </div>
     </section>
 
-    <footer>
-        <h2 style="font-family: var(--font-heading); font-weight: 300; margin-bottom: 1rem;">¿Te interesa una obra?</h2>
-        <p style="color: var(--text-light); max-width: 600px; margin: 0 auto 2rem;">
-            Cada pieza es única y busca capturar la esencia efímera del paisaje. 
-            Contáctame para adquisiciones o encargos personalizados.
-        </p>
-        <a href="mailto:correo@artista.com" class="btn-contact">Contactar</a>
+    <section id="estudio" class="collection-section bg-light">
+        <div class="section-header">
+            <h2>Obras de Estudio</h2>
+            <p>Exploraciones técnicas de gran formato.</p>
+        </div>
+        
+        <div class="grid-uniforme">
+            <article class="product-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1629196911514-cfd8d628b485?auto=format&fit=crop&w=800" alt="Obra">
+                    <span class="badge reservado">Reservado</span>
+                </div>
+                <div class="info">
+                    <h3>Reflejos del Puerto</h3>
+                    <p class="price">450 €</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="footer-content">
+            <h3>Adquisiciones</h3>
+            <p>Para consultas sobre obras disponibles o encargos.</p>
+            <a href="mailto:hola@yamilagorrin.com" class="btn-outline">Enviar Correo</a>
+            <div class="socials">
+                <span>Instagram</span> • <span>Behance</span>
+            </div>
+            <p class="copyright">© 2025 Yamila Gorrin. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
 </body>
