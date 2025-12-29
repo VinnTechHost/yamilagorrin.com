@@ -88,6 +88,19 @@ body {
 }
 
 /* --- SECCIONES --- */
+/* --- CORRECCIÓN DE SCROLL (Para que el menú no tape el título) --- */
+section {
+    /* Esto crea un "colchón" invisible arriba de cada sección al hacer click en el link */
+    scroll-margin-top: 120px; 
+}
+
+/* Ajuste específico para móviles si el menú es más chico o grande */
+@media (max-width: 768px) {
+    section {
+        scroll-margin-top: 100px;
+    }
+}
+
 .collection-section {
     padding: 2rem 3rem;
     max-width: 1400px;
