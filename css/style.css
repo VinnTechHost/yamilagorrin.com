@@ -89,7 +89,7 @@ body {
 
 /* --- SECCIONES --- */
 .collection-section {
-    padding: 4rem 3rem;
+    padding: 2rem 3rem;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -118,9 +118,10 @@ body {
     
     /* ESTO ES LA CLAVE: 'start' evita que las tarjetas se estiren.
        Cada una tendrá la altura natural de su contenido. */
-    align-items: start; 
-    
+    align-items: center; 
+    justify-items: center;
     justify-content: center;
+    margin-bottom: 20px;;
 }
 
 /* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
