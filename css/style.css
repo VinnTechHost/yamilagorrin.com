@@ -389,3 +389,72 @@ footer .copyright {
 .dropbtn {
     cursor: default; /* Para indicar que es un menú */
 }
+
+/* --- ESTILOS DE LA HAMBURGUESA --- */
+.hamburger {
+    display: none; /* Oculto en escritorio */
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--text-main); /* Usa el color de texto principal */
+}
+
+/* --- MEDIA QUERY PARA MÓVIL (Menú Hamburguesa) --- */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Mostrar botón en móvil */
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0; /* Efecto al abrir: oculta la del medio */
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg); /* Cruza la primera */
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg); /* Cruza la última */
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Oculto a la izquierda de la pantalla */
+        top: 70px; /* Altura aproximada del navbar */
+        gap: 0;
+        flex-direction: column;
+        background-color: #ffffff; /* Fondo blanco sólido */
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0; /* Al activar, entra a la pantalla */
+    }
+
+    .nav-menu li {
+        margin: 16px 0;
+    }
+
+    /* Ajuste del Dropdown en móvil para que no flote raro */
+    .dropdown-content {
+        position: static; /* Ya no flota, empuja el contenido */
+        box-shadow: none;
+        border: none;
+        background-color: #f9f9f9;
+        display: none; /* Oculto hasta hover/click */
+        width: 100%;
+    }
+    
+    /* Pequeño truco: en móvil mostramos el dropdown siempre si está dentro del menú */
+    .dropdown:hover .dropdown-content {
+        display: block; 
+    }
+}

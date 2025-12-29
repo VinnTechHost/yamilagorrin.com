@@ -18,7 +18,14 @@
 
     <nav class="navbar">
         <div class="nav-brand">YAMILA GORRIN</div>
-        <ul class="nav-links">
+
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links nav-menu">
             <li><a href="#pleinair">Plein Air</a></li>
 
             <li class="dropdown">
@@ -512,6 +519,28 @@
         document.addEventListener('dragstart', event => event.preventDefault());
     </script>
 
+    <script>
+    // --- SCRIPT MENÚ HAMBURGUESA ---
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    });
+
+    // Cerrar el menú cuando se hace clic en un enlace
+    document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+    }));
+    
+    // Cerrar menú al hacer scroll (Opcional, pero útil)
+    window.onscroll = () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+    };
+</script>
 
 </body>
 
