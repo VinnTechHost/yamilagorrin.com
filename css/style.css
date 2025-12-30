@@ -124,42 +124,34 @@ section {
 
 /* --- GRID (Modificado para alinear arriba) --- */
 .grid-uniforme {
-    display: grid;
-    /* Ajustamos el ancho mínimo para que se vean bien */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    
-    /* ESTO ES LA CLAVE: 'start' evita que las tarjetas se estiren.
-       Cada una tendrá la altura natural de su contenido. */
-    align-items: center; 
-    justify-items: center;
-    justify-content: center;
-    margin-bottom: 20px;;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;               /* <--- El espacio perfecto entre cuadros */
+    justify-content: center; /* Centra todo el grupo en la pantalla */
+    width: 100%;
+    margin-bottom: 40px;     /* Un poco de aire antes de la siguiente sección */
 }
 
 /* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
 .product-card {
-    width: 100%;
-    max-width: 400px; /* Un poco más angostas para elegancia */
-    cursor: pointer;
+    /* Propiedades Flex para que respeten el tamaño */
+    flex: 0 1 350px;       /* Intenta medir 350px, pero puede encogerse */
     
-    /* EL MARCO: Fondo gris suave y borde */
+    width: 100%;           /* Ocupa el ancho disponible hasta el max-width */
+    max-width: 400px;      /* No deja que se hagan gigantes */
+    
+    /* TUS ESTILOS VISUALES (Déjalos igual) */
+    cursor: pointer;
     background-color: var(--card-bg); 
     border: 1px solid var(--card-border);
-    padding: 15px; /* Espacio interno (el "aire" del marco) */
+    padding: 15px;
     
-    /* Quitamos height: 100% para que el texto suba */
     display: flex;
     flex-direction: column;
-    
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.product-card:hover {
-    transform: translateY(-5px); /* Efecto de elevación elegante */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    background-color: #fff; /* Se ilumina un poco al pasar el mouse */
-    border-color: #d0d0d0;
+    
+    /* Importante: Sin márgenes externos porque el 'gap' de arriba ya se encarga */
+    margin: 0; 
 }
 
 .img-container {
