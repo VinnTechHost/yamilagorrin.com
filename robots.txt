@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# Los rastreadores de los motores de IA están permitidos a propósito:
+# aparecer en sus respuestas es parte del objetivo del sitio.
+
 Sitemap: https://galeria.yamilagorrin.com/sitemap.xml

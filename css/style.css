@@ -1,479 +1,330 @@
-/* --- RESET & VARIABLES --- */
+/* ============================================================
+   Yamila Gorrín — acuarela
+   Paleta derivada de la obra: papel húmedo, tinta, y gris de
+   Payne como acento (pigmento real de acuarela, no un azul
+   cualquiera). La obra manda; todo lo demás se aparta.
+   ============================================================ */
+
 :root {
-    --bg-body: #ffffff;
-    --bg-light: #f9f9f9;
-    --text-main: #1a1a1a;
-    --text-muted: #666;
-    --card-bg: #f8f8f8; /* Color de fondo del "marco" de la obra */
-    --card-border: #e5e5e5;
-    --accent: #2c3e50;
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Montserrat', sans-serif;
+  --papel:   #F3F5F4;
+  --nieve:   #FFFFFF;
+  --tinta:   #1B2428;
+  --apagado: #6B7A80;
+  --acento:  #3A5A6B;
+  --acento-vivo: #56808F;
+  --linea:   #DEE4E4;
+  --suave:   #E8EDEC;
+
+  --display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --cuerpo:  'Karla', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ancho: 1180px;
+  --radio: 3px;
 }
 
-html {
-    scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en el menú */
+/* La obra se ve sobre fondo claro siempre: el color de una acuarela
+   no se lee igual sobre negro. En modo oscuro se oscurece el marco
+   de la página, pero la obra conserva su paspartú claro. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel:   #14191C;
+    --nieve:   #1C2327;
+    --tinta:   #E8EDEE;
+    --apagado: #98A7AD;
+    --acento:  #8FB3C0;
+    --acento-vivo: #A9CBD6;
+    --linea:   #2A3338;
+    --suave:   #222B30;
+  }
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
 
 body {
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.6;
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--cuerpo);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* --- NAV BAR --- */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 3rem;
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(5px);
-    z-index: 100;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+img { max-width: 100%; display: block; }
+
+a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--acento-vivo); }
+
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+
+.saltar {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--acento); color: #fff; padding: 10px 16px; z-index: 100;
+}
+.saltar:focus { left: 8px; top: 8px; }
+
+/* ---------------------------------------------------- cabecera */
+
+.cabecera {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1.5rem 2rem; flex-wrap: wrap;
+  padding: 1.1rem clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--papel) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--linea);
 }
 
-.nav-brand {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
+.marca { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+.marca-nombre {
+  font-family: var(--display); font-weight: 600; font-size: 1.45rem;
+  letter-spacing: .01em; line-height: 1.1;
+}
+.marca-oficio {
+  font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--apagado); margin-top: .25rem;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
+.menu ul {
+  display: flex; flex-wrap: wrap; gap: .3rem 1.4rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.menu a {
+  text-decoration: none; color: var(--apagado);
+  font-size: .87rem; letter-spacing: .04em;
+  padding: .2rem 0; border-bottom: 1px solid transparent;
+}
+.menu a:hover { color: var(--tinta); border-bottom-color: var(--linea); }
+.menu a[aria-current="page"] { color: var(--tinta); border-bottom-color: var(--acento); }
+
+/* ---------------------------------------------------- portada */
+
+.portada {
+  display: grid; gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+}
+@media (min-width: 900px) { .portada { grid-template-columns: 1fr 1fr; } }
+
+.portada-lema {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.2rem, 5.6vw, 3.9rem);
+  line-height: 1.08; letter-spacing: -.015em;
+  margin: 0 0 1.3rem; text-wrap: balance;
+}
+.portada-lema em { font-style: italic; color: var(--acento); }
+
+.portada-texto { font-size: clamp(1.02rem, 1.9vw, 1.16rem); max-width: 48ch; margin: 0 0 1.1rem; }
+.portada-texto:last-of-type { color: var(--apagado); }
+
+.portada-figura { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.portada-figura img {
+  /* La obra de portada es vertical: sin tope de altura empuja el texto
+     fuera de la pantalla y deja la composición descuadrada. */
+  width: auto; max-width: 100%; max-height: min(70vh, 620px);
+  border-radius: var(--radio);
+  box-shadow: 0 18px 50px -24px rgba(27, 36, 40, .5);
+}
+.portada-figura figcaption {
+  font-size: .78rem; color: var(--apagado); margin-top: .7rem; letter-spacing: .02em;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    transition: color 0.3s;
+/* ---------------------------------------------------- índice de series */
+
+.franja { border-top: 1px solid var(--linea); }
+
+.contenedor {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
 }
 
-.nav-links a:hover { color: #999; }
-.btn-nav { border-bottom: 1px solid var(--text-main); }
-
-/* --- HERO --- */
-.hero {
-    text-align: center;
-    padding: clamp(3rem, 8vw, 5rem) 1rem 3.5rem;
+.rotulo {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 1.8rem;
 }
 
-.hero h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
+.series {
+  display: grid; gap: 1.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  list-style: none; margin: 0; padding: 0;
+}
+.serie-tarjeta { display: block; text-decoration: none; color: inherit; }
+.serie-marco {
+  aspect-ratio: 5 / 4; background: var(--suave);
+  border-radius: var(--radio); overflow: hidden;
+}
+.serie-marco img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.serie-tarjeta:hover .serie-marco img { transform: scale(1.035); }
+.serie-nombre {
+  font-family: var(--display); font-size: 1.32rem; font-weight: 400;
+  margin: .75rem 0 .15rem;
+}
+.serie-cuenta { font-size: .78rem; color: var(--apagado); letter-spacing: .04em; }
+
+/* ---------------------------------------------------- página de serie */
+
+main { display: block; }
+
+.intro-serie {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.2rem);
 }
 
-/* El nombre va dentro del h1 (para buscadores y lectores de pantalla),
-   pero se muestra como una línea discreta sobre el título. */
-.hero-name {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1.25rem;
+.migas { font-size: .78rem; color: var(--apagado); margin: 0 0 1.4rem; letter-spacing: .03em; }
+.migas a { color: var(--apagado); text-decoration: none; }
+.migas a:hover { color: var(--tinta); text-decoration: underline; }
+.migas span { margin: 0 .45rem; opacity: .5; }
+
+.intro-serie h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.02em;
+  margin: 0 0 1.2rem; text-wrap: balance;
 }
 
-.hero p {
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
+.entradilla {
+  font-size: clamp(1.05rem, 2vw, 1.22rem); line-height: 1.6;
+  max-width: 60ch; margin: 0 0 1rem;
+}
+.apunte {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.5;
+  color: var(--acento); max-width: 56ch;
+  margin: 0 0 1.6rem; padding-left: 1.1rem;
+  border-left: 2px solid var(--linea);
+}
+.conteo {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0;
 }
 
-/* --- SECCIONES --- */
-/* --- CORRECCIÓN DE SCROLL (Para que el menú no tape el título) --- */
-section {
-    /* Esto crea un "colchón" invisible arriba de cada sección al hacer click en el link */
-    scroll-margin-top: 120px; 
+.galeria {
+  display: grid; gap: clamp(1.8rem, 3.5vw, 3rem);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
 }
 
-/* Ajuste específico para móviles si el menú es más chico o grande */
-@media (max-width: 768px) {
-    section {
-        scroll-margin-top: 100px;
-    }
+.obra { margin: 0; display: flex; flex-direction: column; }
+
+/* Paspartú de proporción fija. Las obras mezclan vertical y horizontal:
+   sin un marco común, una vertical estira su tarjeta y las fichas dejan
+   de alinearse. Así se comporta una sala de exposición real. */
+.obra-marco {
+  background: var(--nieve);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: clamp(.9rem, 2vw, 1.5rem);
+  aspect-ratio: 1;
+  display: grid; place-items: center;
+  transition: box-shadow .35s ease, border-color .35s ease;
+}
+.obra:hover .obra-marco {
+  border-color: color-mix(in srgb, var(--acento) 35%, var(--linea));
+  box-shadow: 0 16px 40px -26px rgba(27, 36, 40, .55);
+}
+.obra-marco img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto; object-fit: contain;
+  border-radius: 1px;
 }
 
-.collection-section {
-    padding: 2rem 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
+.obra figcaption { padding: .85rem .15rem 0; }
+.obra h3 {
+  font-family: var(--display); font-weight: 500; font-size: 1.24rem;
+  line-height: 1.25; margin: 0 0 .25rem; text-wrap: balance;
+}
+.ficha {
+  font-size: .8rem; color: var(--apagado); margin: 0;
+  letter-spacing: .02em; font-variant-numeric: tabular-nums;
 }
 
-.bg-light { background-color: var(--bg-light); width: 100%; max-width: 100%; }
+/* ---------------------------------------------------- otras series */
 
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
+.siguientes {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
 }
-
-.section-header h2 {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+.siguientes h2 {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); font-weight: 500;
+  margin: 0 0 1rem; padding-top: 2rem; border-top: 1px solid var(--linea);
 }
-
-.section-header p { color: var(--text-muted); font-size: 0.95rem; }
-
-/* --- GRID (Modificado para alinear arriba) --- */
-.grid-uniforme {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;               /* <--- El espacio perfecto entre cuadros */
-    justify-content: center; /* Centra todo el grupo en la pantalla */
-    width: 100%;
-    margin-bottom: 40px;     /* Un poco de aire antes de la siguiente sección */
+.siguientes ul {
+  display: flex; flex-wrap: wrap; gap: .6rem .9rem;
+  list-style: none; margin: 0; padding: 0;
 }
-
-/* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
-.product-card {
-    /* Propiedades Flex para que respeten el tamaño */
-    flex: 0 1 350px;       /* Intenta medir 350px, pero puede encogerse */
-    
-    width: 100%;           /* Ocupa el ancho disponible hasta el max-width */
-    max-width: 400px;      /* No deja que se hagan gigantes */
-    
-    /* TUS ESTILOS VISUALES (Déjalos igual) */
-    cursor: pointer;
-    background-color: var(--card-bg); 
-    border: 1px solid var(--card-border);
-    padding: 15px;
-    
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* Importante: Sin márgenes externos porque el 'gap' de arriba ya se encarga */
-    margin: 0; 
+.siguientes a {
+  display: inline-block; text-decoration: none;
+  font-size: .88rem; color: var(--apagado);
+  padding: .45rem 1.1rem; border: 1px solid var(--linea); border-radius: 99px;
 }
+.siguientes a:hover { color: var(--tinta); border-color: var(--acento); }
 
-.img-container {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    width: 100%;
+/* ---------------------------------------------------- sobre mí */
+
+.ensayo {
+  max-width: 68ch; margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
 }
-
-.product-card img {
-    width: 100%;
-    height: auto; 
-    display: block;
-    /* Borde muy sutil en la imagen misma */
-    border-radius: 1px; 
+.ensayo h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.05;
+  letter-spacing: -.02em; margin: 0 0 1.5rem;
 }
-
-/* Etiquetas (Vendido, Nuevo) */
-.badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: white;
-    padding: 4px 10px;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.ensayo h2 {
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.2;
+  margin: 2.8rem 0 .9rem; text-wrap: balance;
 }
-
-.badge.vendido { background: #e0e0e0; color: #777; }
-.badge.reservado { background: #fff3cd; color: #856404; }
-
-/* Ajustes de Texto dentro del marco */
-.info {
-    text-align: left;
-    padding-top: 0.2rem; 
+.ensayo p { margin: 0 0 1.15rem; }
+.ensayo .destacado {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem); line-height: 1.4;
+  color: var(--acento); margin: 2rem 0;
 }
+.ensayo ul { margin: 0 0 1.3rem; padding-left: 1.2rem; }
+.ensayo li { margin-bottom: .5rem; }
 
-.info h3 {
-    font-size: 1.05rem;
-    font-weight: 500;
-    font-family: var(--font-heading);
-    margin-bottom: 0.4rem;
-    color: #222;
+.retrato { margin: 0 0 2.5rem; }
+.retrato img { width: 100%; border-radius: var(--radio); }
+.retrato figcaption { font-size: .78rem; color: var(--apagado); margin-top: .6rem; }
+
+.contacto {
+  margin-top: 3rem; padding: 1.6rem 1.8rem;
+  background: var(--nieve); border: 1px solid var(--linea); border-radius: var(--radio);
 }
+.contacto p { margin: 0 0 .5rem; }
+.contacto p:last-child { margin-bottom: 0; }
 
-.price {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-family: var(--font-body);
+/* ---------------------------------------------------- pie */
+
+.pie { border-top: 1px solid var(--linea); background: var(--suave); }
+.pie-caja {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
 }
-
-.price.sold { text-decoration: line-through; opacity: 0.6; }
-
-/* --- FOOTER (Estilo Oscuro) --- */
-footer {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    text-align: center;
-    padding: 5rem 1rem;
-    margin-top: 5rem;
+.pie-lema {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-size: clamp(1.3rem, 3vw, 1.85rem); line-height: 1.3;
+  margin: 0 0 1.2rem; max-width: 30ch;
 }
+.pie-datos { font-size: .87rem; color: var(--apagado); margin: 0; line-height: 1.8; }
+.pie-datos a { color: var(--apagado); }
+.pie-datos a:hover { color: var(--tinta); }
 
-footer .btn-outline {
-    display: inline-block;
-    border: 1px solid #ffffff;
-    padding: 10px 25px;
-    text-decoration: none;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    margin: 1.5rem 0;
-    transition: all 0.3s;
-}
+/* ---------------------------------------------------- 404 */
 
-footer .btn-outline:hover {
-    background: #ffffff;
-    color: #1a1a1a;
-}
-
-footer .socials {
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    color: #dddddd;
-}
-
-/* Link de Instagram Alineado */
-footer .socials a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
-
-footer .socials a:hover {
-    opacity: 0.8;
-    transform: translateY(-2px);
-}
-
-footer .copyright {
-    font-size: 0.8rem;
-    color: #888888;
-}
-
-/* --- LIGHTBOX (MODAL) --- */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    padding-top: 40px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.92); 
-    backdrop-filter: blur(8px);
-}
-
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 95%;
-    max-height: 85vh;
-    width: auto;
-    height: auto;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    border: 1px solid #333;
-    animation-name: zoom;
-    animation-duration: 0.3s;
-}
-
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 15px 0;
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 45px;
-    font-weight: 100;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 1001;
-    line-height: 1;
-}
-
-.close:hover { color: #bbb; }
-
-@keyframes zoom {
-    from {transform:scale(0.95); opacity: 0;} 
-    to {transform:scale(1); opacity: 1;}
-}
-
-@media only screen and (max-width: 700px){
-    .modal-content { width: 100%; }
-}
-
-/* --- FOTO DE PERFIL ARTISTA --- */
-.artist-portrait {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin: 0 auto 2rem;
-    border: 4px solid #fff;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .navbar { padding: 1rem; flex-direction: column; gap: 1rem; }
-    .hero-name { font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 1rem; }
-    .collection-section { padding: 3rem 1.5rem; }
-    .grid-uniforme { gap: 1.5rem; }
-}
-
-/* --- ESTILOS DEL MENÚ DESPLEGABLE (DROPDOWN) --- */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none; /* Oculto por defecto */
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 200px; /* Ancho del menú desplegado */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1000; /* Asegura que flote sobre las fotos */
-    border-radius: 4px;
-    padding: 10px 0;
-    top: 100%; /* Aparece justo debajo del botón */
-    left: 0;
-    border: 1px solid #eee;
-}
-
-.dropdown-content a {
-    color: var(--text-main);
-    padding: 12px 20px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 0.85rem;
-    border-bottom: 1px solid #f9f9f9;
-}
-
-.dropdown-content a:hover {
-    background-color: #f5f5f5;
-    color: #000;
-}
-
-/* Mostrar el menú al pasar el mouse sobre "Series de Acuarelas" */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Ajuste visual para la flechita */
-.dropbtn {
-    cursor: default; /* Para indicar que es un menú */
-}
-
-/* --- ESTILOS DE LA HAMBURGUESA --- */
-.hamburger {
-    display: none; /* Oculto en escritorio */
-    cursor: pointer;
-}
-
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--text-main); /* Usa el color de texto principal */
-}
-
-/* --- MEDIA QUERY PARA MÓVIL (Menú Hamburguesa) --- */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block; /* Mostrar botón en móvil */
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0; /* Efecto al abrir: oculta la del medio */
-    }
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg); /* Cruza la primera */
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg); /* Cruza la última */
-    }
-
-    .nav-menu {
-        position: fixed;
-        left: -100%; /* Oculto a la izquierda de la pantalla */
-        top: 70px; /* Altura aproximada del navbar */
-        gap: 0;
-        flex-direction: column;
-        background-color: #ffffff; /* Fondo blanco sólido */
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        padding: 2rem 0;
-    }
-
-    .nav-menu.active {
-        left: 0; /* Al activar, entra a la pantalla */
-    }
-
-    .nav-menu li {
-        margin: 16px 0;
-    }
-
-    /* Ajuste del Dropdown en móvil para que no flote raro */
-    .dropdown-content {
-        position: static; /* Ya no flota, empuja el contenido */
-        box-shadow: none;
-        border: none;
-        background-color: #f9f9f9;
-        display: none; /* Oculto hasta hover/click */
-        width: 100%;
-    }
-    
-    /* Pequeño truco: en móvil mostramos el dropdown siempre si está dentro del menú */
-    .dropdown:hover .dropdown-content {
-        display: block; 
-    }
-}
+.perdida { max-width: 46ch; margin: 0 auto; padding: clamp(4rem, 12vw, 8rem) 1.5rem; text-align: center; }
+.perdida h1 { font-family: var(--display); font-weight: 300; font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 1rem; }
