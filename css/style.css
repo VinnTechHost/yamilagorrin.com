@@ -135,7 +135,17 @@ a:hover { color: var(--acento-vivo); }
   box-shadow: 0 18px 50px -24px rgba(27, 36, 40, .5);
 }
 .portada-figura figcaption {
-  font-size: .78rem; color: var(--apagado); margin-top: .7rem; letter-spacing: .02em;
+  font-size: .8rem; color: var(--apagado); margin-top: .9rem;
+  letter-spacing: .02em; text-align: center; line-height: 1.6;
+}
+.portada-figura figcaption strong { color: var(--tinta); font-weight: 500; }
+
+/* La selección en IWS es la credencial más fuerte y hasta ahora no
+   aparecía en ninguna parte del sitio. */
+.credencial {
+  display: inline-block; margin-top: .35rem;
+  font-size: .75rem; color: var(--acento);
+  letter-spacing: .04em; max-width: 34ch;
 }
 
 /* ---------------------------------------------------- índice de series */
@@ -158,15 +168,35 @@ a:hover { color: var(--acento-vivo); }
   list-style: none; margin: 0; padding: 0;
 }
 .serie-tarjeta { display: block; text-decoration: none; color: inherit; }
+
+/* Una obra NUNCA se recorta. Antes esto usaba object-fit: cover y cortaba
+   las acuarelas por donde cayera, que es falsear la obra. Ahora cada una
+   se ve entera dentro de un paspartú, como en una sala. */
 .serie-marco {
-  aspect-ratio: 5 / 4; background: var(--suave);
-  border-radius: var(--radio); overflow: hidden;
+  position: relative;
+  aspect-ratio: 5 / 4;
+  background: var(--nieve);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: clamp(.6rem, 1.4vw, 1rem);
+  overflow: hidden;
+  transition: border-color .35s ease, box-shadow .35s ease;
 }
+/* La obra se posiciona dentro del marco en vez de depender de alturas
+   en porcentaje, que no se resuelven contra una caja con aspect-ratio.
+   `contain` la encaja entera: ni recortada ni deformada. */
 .serie-marco img {
-  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: inherit;
+  object-fit: contain;
   transition: transform .5s cubic-bezier(.2,.7,.3,1);
 }
-.serie-tarjeta:hover .serie-marco img { transform: scale(1.035); }
+.serie-tarjeta:hover .serie-marco {
+  border-color: color-mix(in srgb, var(--acento) 35%, var(--linea));
+  box-shadow: 0 14px 34px -24px rgba(27, 36, 40, .5);
+}
+.serie-tarjeta:hover .serie-marco img { transform: scale(1.02); }
 .serie-nombre {
   font-family: var(--display); font-size: 1.32rem; font-weight: 400;
   margin: .75rem 0 .15rem;
@@ -226,8 +256,9 @@ main { display: block; }
   border: 1px solid var(--linea);
   border-radius: var(--radio);
   padding: clamp(.9rem, 2vw, 1.5rem);
+  position: relative;
   aspect-ratio: 1;
-  display: grid; place-items: center;
+  overflow: hidden;
   transition: box-shadow .35s ease, border-color .35s ease;
 }
 .obra:hover .obra-marco {
@@ -235,8 +266,10 @@ main { display: block; }
   box-shadow: 0 16px 40px -26px rgba(27, 36, 40, .55);
 }
 .obra-marco img {
-  max-width: 100%; max-height: 100%;
-  width: auto; height: auto; object-fit: contain;
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: inherit;
+  object-fit: contain;
   border-radius: 1px;
 }
 
@@ -297,9 +330,24 @@ main { display: block; }
 .ensayo ul { margin: 0 0 1.3rem; padding-left: 1.2rem; }
 .ensayo li { margin-bottom: .5rem; }
 
-.retrato { margin: 0 0 2.5rem; }
-.retrato img { width: 100%; border-radius: var(--radio); }
+/* El retrato acompaña al texto, no lo sustituye. A ancho completo la foto
+   es vertical y muy alta, y empuja la biografía fuera de la pantalla. */
+.retrato { margin: 0 0 1.8rem; }
+.retrato img {
+  width: 100%; max-width: 260px; height: auto;
+  border-radius: var(--radio);
+  box-shadow: 0 14px 36px -24px rgba(27, 36, 40, .5);
+}
 .retrato figcaption { font-size: .78rem; color: var(--apagado); margin-top: .6rem; }
+
+@media (min-width: 720px) {
+  .retrato {
+    float: right; width: 240px;
+    margin: .4rem 0 1.4rem 2.2rem;
+    shape-outside: margin-box;
+  }
+  .retrato img { max-width: 100%; }
+}
 
 .contacto {
   margin-top: 3rem; padding: 1.6rem 1.8rem;
