@@ -123,8 +123,135 @@ a:hover { color: var(--acento-vivo); }
 }
 .portada-lema em { font-style: italic; color: var(--acento); }
 
+.portada-eyebrow {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 1.2rem;
+}
+
 .portada-texto { font-size: clamp(1.02rem, 1.9vw, 1.16rem); max-width: 48ch; margin: 0 0 1.1rem; }
-.portada-texto:last-of-type { color: var(--apagado); }
+.portada-texto.apagado { color: var(--apagado); }
+
+.portada-acciones { display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.8rem 0 0; }
+
+.boton {
+  display: inline-block; text-decoration: none;
+  background: var(--acento); color: var(--papel);
+  font-size: .92rem; letter-spacing: .03em;
+  padding: .75rem 1.6rem; border-radius: 99px;
+  border: 1px solid var(--acento);
+  transition: opacity .25s ease;
+}
+.boton:hover { opacity: .88; color: var(--papel); }
+.boton-plano { background: none; color: var(--acento); border-color: var(--linea); }
+.boton-plano:hover { color: var(--acento); border-color: var(--acento); opacity: 1; }
+
+/* ---------------------------------------------------- credenciales */
+
+/* Una franja de señales de confianza. Sirve a quien llega por primera vez,
+   y es de lo primero que leen los motores de IA para decidir quién eres. */
+.credenciales {
+  border-top: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+  background: var(--nieve);
+}
+.contenedor-ancho { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+.credenciales ul {
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  list-style: none; margin: 0; padding: 0;
+}
+.credenciales li {
+  padding: 1.5rem 1.4rem 1.5rem 0;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.credenciales strong {
+  font-family: var(--display); font-size: 1.12rem; font-weight: 600;
+  letter-spacing: .01em;
+}
+.credenciales span { font-size: .84rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---------------------------------------------------- encabezados de sección */
+
+.encabezado-seccion { margin-bottom: 2.2rem; }
+.encabezado-seccion h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0; text-wrap: balance;
+}
+
+.enlace-flecha {
+  display: inline-block; text-decoration: none;
+  font-size: .92rem; letter-spacing: .03em;
+  border-bottom: 1px solid var(--linea); padding-bottom: 2px;
+}
+.enlace-flecha::after { content: ' →'; }
+.enlace-flecha:hover { border-bottom-color: var(--acento); }
+
+/* ---------------------------------------------------- el método */
+
+.metodo-caja {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+}
+@media (min-width: 860px) { .metodo-caja { grid-template-columns: 1fr 1.15fr; } }
+.metodo-figura { margin: 0; }
+.metodo-figura img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 18px 46px -28px rgba(27, 36, 40, .5);
+}
+.metodo h2 { margin: .3rem 0 1rem; font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.1; letter-spacing: -.015em; }
+.metodo p { max-width: 52ch; margin: 0 0 1rem; }
+
+/* ---------------------------------------------------- entradas del blog */
+
+.entradas {
+  display: grid; gap: 1.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  list-style: none; margin: 0 0 2rem; padding: 0;
+}
+.entradas-lista { grid-template-columns: 1fr; gap: 0; }
+
+.entrada-tarjeta {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--nieve); border: 1px solid var(--linea);
+  border-radius: var(--radio); padding: 1.4rem 1.5rem;
+  transition: border-color .25s ease, transform .25s ease;
+}
+.entradas-lista .entrada-tarjeta {
+  background: none; border: none; border-bottom: 1px solid var(--linea);
+  border-radius: 0; padding: 1.8rem 0;
+}
+.entrada-tarjeta:hover { border-color: var(--acento); transform: translateY(-2px); }
+.entradas-lista .entrada-tarjeta:hover { transform: none; border-bottom-color: var(--acento); }
+.entrada-tarjeta time {
+  display: block; font-size: .76rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--apagado); margin-bottom: .5rem;
+}
+.entrada-tarjeta h2, .entrada-tarjeta h3 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.22;
+  margin: 0 0 .5rem; text-wrap: balance;
+}
+.entrada-tarjeta p { font-size: .94rem; color: var(--apagado); margin: 0; max-width: 62ch; }
+
+.fecha-entrada {
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 .6rem;
+}
+.entrada-imagen { margin: 0 0 2rem; }
+.entrada-imagen img { width: 100%; border-radius: var(--radio); }
+.volver-blog { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--linea); }
+
+/* ---------------------------------------------------- cierre */
+
+.cierre { background: var(--nieve); border-top: 1px solid var(--linea); }
+.cierre h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1rem;
+}
+.cierre-texto { font-size: clamp(1.02rem, 2vw, 1.18rem); max-width: 46ch; margin: 0; }
 
 .portada-figura { margin: 0; display: flex; flex-direction: column; align-items: center; }
 .portada-figura img {
@@ -198,10 +325,10 @@ a:hover { color: var(--acento-vivo); }
 }
 .serie-tarjeta:hover .serie-marco img { transform: scale(1.02); }
 .serie-nombre {
-  font-family: var(--display); font-size: 1.32rem; font-weight: 400;
-  margin: .75rem 0 .15rem;
+  font-family: var(--display); font-size: 1.42rem; font-weight: 400;
+  margin: .85rem 0 .2rem;
 }
-.serie-cuenta { font-size: .78rem; color: var(--apagado); letter-spacing: .04em; }
+.serie-pie { font-size: .78rem; color: var(--apagado); letter-spacing: .04em; margin: 0; }
 
 /* ---------------------------------------------------- página de serie */
 

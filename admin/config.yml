@@ -1,0 +1,68 @@
+# Decap CMS — el panel que escribe las entradas del blog en el repositorio.
+#
+# Cada entrada que publiques acá se guarda como archivo Markdown en
+# contenido/blog/, la acción de GitHub la convierte en HTML, y queda como
+# una página real que los buscadores y los motores de IA pueden leer.
+
+backend:
+  name: github
+  repo: VinnTechHost/yamilagorrin.com
+  branch: main
+
+  # GitHub Pages no puede ejecutar código, y el intercambio de credenciales
+  # con GitHub necesita un secreto que no puede vivir en un archivo estático.
+  # Por eso hace falta este pequeño servicio intermedio. Es gratis.
+  # Reemplaza la dirección por la de tu worker: ver CONFIGURACION.md, paso 3.
+  base_url: https://REEMPLAZAR-POR-TU-WORKER.workers.dev
+  auth_endpoint: auth
+
+# Las imágenes que subas desde el panel van a la misma carpeta que el resto.
+media_folder: "img_webp"
+public_folder: "/img_webp"
+
+locale: "es"
+
+collections:
+  - name: "blog"
+    label: "Entradas del blog"
+    label_singular: "Entrada"
+    folder: "contenido/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{fecha}} — {{titulo}}"
+    sortable_fields: ['fecha', 'titulo']
+    fields:
+      - label: "Título"
+        name: "titulo"
+        widget: "string"
+        hint: "El que se ve grande arriba y el que aparece en Google."
+
+      - label: "Fecha"
+        name: "fecha"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: false
+
+      - label: "Resumen"
+        name: "resumen"
+        widget: "text"
+        required: false
+        hint: "Dos líneas. Es lo que Google muestra debajo del título. Si lo dejas vacío se toma el principio del texto."
+
+      - label: "Imagen de portada"
+        name: "imagen"
+        widget: "image"
+        required: false
+        hint: "La que se ve al compartir el enlace por WhatsApp o Instagram."
+
+      - label: "Borrador"
+        name: "borrador"
+        widget: "boolean"
+        default: false
+        required: false
+        hint: "Si está activado, la entrada NO se publica. Sirve para dejarla a medias."
+
+      - label: "Texto"
+        name: "body"
+        widget: "markdown"

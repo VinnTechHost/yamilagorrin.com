@@ -1,0 +1,58 @@
+# Convierte las entradas del blog en páginas HTML reales.
+#
+# Cuando publicas desde /admin/, Decap CMS guarda un archivo Markdown en
+# contenido/blog/. Esta acción lo detecta, reconstruye el sitio y sube el
+# HTML resultante. GitHub Pages lo sirve como siempre, sin cambiar nada
+# en la configuración del repositorio.
+
+name: Construir el sitio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'contenido/**'
+      - '_construir/**'
+      - 'img_webp/**'
+  workflow_dispatch:        # también se puede lanzar a mano desde GitHub
+
+# Un solo build a la vez: si publicas dos entradas seguidas, la segunda
+# espera en vez de pelearse con la primera por el mismo commit.
+concurrency:
+  group: construir-sitio
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # El constructor usa solo la biblioteca estándar, a propósito:
+      # así esta acción no depende de que ningún paquete externo siga vivo.
+      - name: Construir
+        run: python _construir/construir.py
+
+      - name: Publicar los cambios
+        run: |
+          git config user.name "Constructor del sitio"
+          git config user.email "actions@github.com"
+
+          if git diff --quiet; then
+            echo "El sitio ya estaba al día. No hay nada que publicar."
+            exit 0
+          fi
+
+          git add -A
+          git commit -m "sitio: reconstruido tras cambiar el contenido [skip ci]"
+          git push
