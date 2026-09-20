@@ -131,7 +131,11 @@ a:hover { color: var(--acento-vivo); }
 .portada-texto { font-size: clamp(1.02rem, 1.9vw, 1.16rem); max-width: 48ch; margin: 0 0 1.1rem; }
 .portada-texto.apagado { color: var(--apagado); }
 
-.portada-acciones { display: flex; gap: .8rem; flex-wrap: wrap; margin: 1.8rem 0 0; }
+.portada-acciones { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.8rem 0 0; }
+
+/* Cuatro accesos en vez de uno: la portada es el lugar donde alguien
+   decide adónde ir, y conviene que las opciones estén a la vista. */
+.portada-acciones .boton { padding: .68rem 1.25rem; font-size: .89rem; }
 
 .boton {
   display: inline-block; text-decoration: none;

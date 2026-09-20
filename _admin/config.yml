@@ -4,17 +4,17 @@
 # contenido/blog/, la acción de GitHub la convierte en HTML, y queda como
 # una página real que los buscadores y los motores de IA pueden leer.
 
-backend:
-  name: github
-  repo: VinnTechHost/yamilagorrin.com
-  branch: main
+# Este panel se usa SOLO en tu computador. La carpeta empieza con guion
+# bajo, así que GitHub Pages no la publica: nadie en internet la alcanza.
+#
+# En modo local, Decap escribe directamente en tu repositorio de trabajo.
+# No hace falta OAuth, ni proxy, ni worker: escribes, revisas, y subes con
+# git cuando estés conforme.
+local_backend: true
 
-  # GitHub Pages no puede ejecutar código, y el intercambio de credenciales
-  # con GitHub necesita un secreto que no puede vivir en un archivo estático.
-  # Por eso hace falta este pequeño servicio intermedio. Es gratis.
-  # Reemplaza la dirección por la de tu worker: ver CONFIGURACION.md, paso 3.
-  base_url: https://REEMPLAZAR-POR-TU-WORKER.workers.dev
-  auth_endpoint: auth
+backend:
+  name: git-gateway
+  branch: main
 
 # Las imágenes que subas desde el panel van a la misma carpeta que el resto.
 media_folder: "img_webp"

@@ -114,10 +114,12 @@ def portada(entradas):
         Pintar una obra me toma unas tres horas. Decidir qué pintar puede tomarme semanas.
         Ese desequilibrio no es un defecto del método: es el método.
       </p>
-      <div class="portada-acciones">
-        <a class="boton" href="/paisajes/">Ver la obra</a>
-        <a class="boton boton-plano" href="/sobre-mi/">Sobre mí</a>
-      </div>
+      <nav class="portada-acciones" aria-label="Accesos rápidos">
+        <a class="boton" href="/plein-air/">Plein Air</a>
+        <a class="boton" href="/paisajes/">Paisajes</a>
+        <a class="boton" href="/naturaleza/">Naturaleza</a>
+        <a class="boton boton-plano" href="/blog/">Blog</a>
+      </nav>
     </div>
     <figure class="portada-figura">
       <img src="''' + img(destacada) + '''" width="1000" height="1335"
@@ -444,7 +446,7 @@ def sitemap(entradas):
     escribir('robots.txt',
              'User-agent: *\nAllow: /\n\n'
              '# La administración no se indexa: es una herramienta, no contenido.\n'
-             'Disallow: /administracion/\nDisallow: /admin/\n\n'
+             'Disallow: /_administracion/\nDisallow: /_admin/\n\n'
              '# Los rastreadores de los motores de IA están permitidos a propósito:\n'
              '# aparecer en sus respuestas es parte del objetivo del sitio.\n\n'
              'Sitemap: ' + DOMINIO + '/sitemap.xml\n')

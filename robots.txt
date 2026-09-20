@@ -2,8 +2,8 @@ User-agent: *
 Allow: /
 
 # La administración no se indexa: es una herramienta, no contenido.
-Disallow: /administracion/
-Disallow: /admin/
+Disallow: /_administracion/
+Disallow: /_admin/
 
 # Los rastreadores de los motores de IA están permitidos a propósito:
 # aparecer en sus respuestas es parte del objetivo del sitio.
