@@ -204,16 +204,24 @@ def portada(entradas):
         p.append('    </div>\n  </section>\n\n')
 
     # 6. Contacto
+    # El cierre no anuncia disponibilidad: describe lo que recibe quien
+    # escribe, y le da la primera frase ya escrita.
     p.append('''  <section class="franja cierre">
-    <div class="contenedor">
-      <h2>Trabajemos juntas</h2>
+    <div class="contenedor cierre-caja">
+      <h2>Un encargo</h2>
+      <p class="cierre-lema">Tú eliges el lugar que te importa. Yo decido cómo mirarlo.</p>
       <p class="cierre-texto">
-        Estoy disponible para encargos, colaboraciones y talleres de pintura al aire libre.
+        Escríbeme contándome qué lugar es y por qué, y te respondo con el proceso completo,
+        el plazo y el precio. Sin compromiso.
+      </p>
+      <p class="cierre-credencial">
+        Seleccionada en «Visiones del Agua», International Watercolor Society 2025
       </p>
       <p class="portada-acciones">
-        <a class="boton" href="mailto:''' + CORREO + '''">Escríbeme</a>
-        <a class="boton boton-plano" href="''' + INSTAGRAM + '''" rel="me noopener"
-           target="_blank">@yamy_colors</a>
+        <a class="boton" href="mailto:''' + CORREO +
+             '''?subject=Encargo%20de%20una%20obra">Escribir sobre un encargo</a>
+        <a class="boton boton-plano" href="mailto:''' + CORREO +
+             '''?subject=Salidas%20a%20pintar%20al%20aire%20libre">Salidas a pintar al aire libre</a>
       </p>
     </div>
   </section>
@@ -298,7 +306,8 @@ def pagina_sobre_mi():
                 'y acuarelista por Academia CAPA. Seleccionada en IWS 2025.',
                 DOMINIO + '/sobre-mi/', '/img_webp/yamilagorrinBalncoyNegro.webp', ld)]
     p.append(navegacion('sobre-mi'))
-    p.append('<main id="principal">\n  <article class="ensayo">\n')
+    # No usa .ensayo: esta página es de bandas anchas, no una columna de lectura.
+    p.append('<main id="principal">\n  <article class="biografia">\n')
     p.append(cuerpo + '\n')
     p.append('  </article>\n</main>\n')
     p.append(PIE)

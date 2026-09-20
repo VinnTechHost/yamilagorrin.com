@@ -57,7 +57,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 
 a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { color: var(--acento-vivo); }
@@ -255,7 +255,24 @@ a:hover { color: var(--acento-vivo); }
   font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08;
   letter-spacing: -.02em; margin: 0 0 1rem;
 }
-.cierre-texto { font-size: clamp(1.02rem, 2vw, 1.18rem); max-width: 46ch; margin: 0; }
+.cierre-caja, .contacto-caja { max-width: 54ch; }
+
+/* La frase que resume el posicionamiento y, de paso, resuelve el cuello
+   de botella: en un encargo la decisión de qué pintar ya viene tomada. */
+.cierre-lema {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem); line-height: 1.4;
+  color: var(--acento); margin: 0 0 1.2rem; max-width: 40ch;
+}
+.cierre-texto { font-size: clamp(1.02rem, 2vw, 1.12rem); max-width: 50ch; margin: 0 0 1.4rem; }
+
+/* La credencial, a la vista en el momento de decidir y no a tres mil
+   píxeles de distancia, arriba del todo. */
+.cierre-credencial {
+  font-size: .82rem; color: var(--apagado); letter-spacing: .02em;
+  margin: 0 0 1.8rem; padding-top: 1rem; border-top: 1px solid var(--linea);
+  max-width: 44ch;
+}
 
 .portada-figura { margin: 0; display: flex; flex-direction: column; align-items: center; }
 .portada-figura img {
@@ -435,6 +452,183 @@ main { display: block; }
   padding: .45rem 1.1rem; border: 1px solid var(--linea); border-radius: 99px;
 }
 .siguientes a:hover { color: var(--tinta); border-color: var(--acento); }
+
+/* ============================================================
+   Biografía — bandas horizontales alternadas.
+   Una columna larga de texto se lee como un muro. Alternando texto
+   y obra, y cambiando el ritmo con citas anchas, la misma cantidad
+   de contenido se recorre sin cansancio.
+   ============================================================ */
+
+.biografia { display: block; }
+.biografia .migas {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) 0;
+}
+
+/* ---- presentación ---- */
+
+.bio-portada {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 6vw, 4rem);
+}
+@media (min-width: 820px) { .bio-portada { grid-template-columns: 340px 1fr; } }
+
+.bio-retrato { margin: 0; }
+.bio-retrato img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 20px 50px -28px rgba(27, 36, 40, .55);
+}
+
+.bio-entrada h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.3rem, 6vw, 3.6rem); line-height: 1.04;
+  letter-spacing: -.02em; margin: 0 0 1.1rem; text-wrap: balance;
+}
+.bio-entrada .entradilla { max-width: 46ch; margin: 0 0 2rem; }
+
+.bio-datos { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+@media (min-width: 560px) { .bio-datos { grid-template-columns: repeat(3, 1fr); gap: 1.4rem; } }
+.bio-datos li {
+  display: flex; flex-direction: column; gap: .25rem;
+  padding-top: .8rem; border-top: 1px solid var(--linea);
+}
+.bio-datos strong { font-family: var(--display); font-size: 1.05rem; font-weight: 600; }
+.bio-datos span { font-size: .8rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---- bandas de dos columnas, alternadas ---- */
+
+.banda-dos {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--linea);
+}
+@media (min-width: 820px) {
+  .banda-dos { grid-template-columns: 1fr 1fr; }
+  /* La obra alterna de lado en cada banda, para que la página no caiga
+     en un patrón de dos carriles fijos. */
+  .banda-dos[data-orden="invertido"] .banda-figura { order: -1; }
+}
+
+.banda-texto h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0 0 1.1rem; text-wrap: balance;
+}
+.banda-texto p { max-width: 54ch; margin: 0 0 1rem; }
+
+.banda-figura { margin: 0; }
+.banda-figura img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 18px 46px -28px rgba(27, 36, 40, .5);
+}
+.banda-figura figcaption {
+  font-size: .78rem; color: var(--apagado);
+  margin-top: .7rem; letter-spacing: .02em;
+}
+
+/* ---- cita a todo el ancho ---- */
+
+.cita-ancha { background: var(--nieve); border-top: 1px solid var(--linea); }
+.cita-caja {
+  max-width: 62ch; margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+.cita-titulo {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1.4rem;
+}
+.cita-cuerpo { margin: 0 0 1.6rem; }
+.cita-remate {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.45;
+  color: var(--acento); margin: 0;
+}
+
+/* ---- banda plena ---- */
+
+.banda-plena {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--linea);
+}
+.banda-plena > h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0 0 .6rem; text-wrap: balance;
+}
+.banda-bajada { color: var(--apagado); margin: 0 0 2.4rem; max-width: 52ch; }
+
+/* ---- los dos oficios ---- */
+
+.dos-modos { display: grid; gap: clamp(1.8rem, 4vw, 3rem); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .dos-modos { grid-template-columns: 1fr 1fr; } }
+.modo figure { margin: 0 0 1.2rem; }
+.modo figure img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center;
+  border-radius: var(--radio);
+}
+.modo h3 {
+  font-family: var(--display); font-weight: 500; font-size: 1.5rem;
+  margin: 0 0 .6rem;
+}
+.modo p { margin: 0 0 .9rem; }
+
+/* ---- la postura ---- */
+
+.banda-postura { background: var(--suave); border-top: 1px solid var(--linea); }
+.postura-caja {
+  max-width: 58ch; margin: 0 auto;
+  padding: clamp(3rem, 7vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+}
+.postura-caja h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.5vw, 2.7rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1.2rem;
+}
+
+/* ---- formación y trayectoria en paralelo ---- */
+
+.dos-listas { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .dos-listas { grid-template-columns: 1fr 1fr; } }
+.dos-listas h2 {
+  font-family: var(--display); font-weight: 400; font-size: 1.6rem;
+  margin: 0 0 1.2rem; padding-bottom: .7rem; border-bottom: 1px solid var(--linea);
+}
+.lista-hitos { list-style: none; margin: 0; padding: 0; }
+.lista-hitos li {
+  display: flex; flex-direction: column; gap: .2rem;
+  padding: .9rem 0; border-bottom: 1px solid var(--linea);
+}
+.lista-hitos strong { font-size: .97rem; font-weight: 600; }
+.lista-hitos span { font-size: .85rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---- declaración ---- */
+
+.banda-declaracion { background: var(--nieve); border-top: 1px solid var(--linea); }
+.declaracion-caja {
+  max-width: 64ch; margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+.declaracion-caja p:last-child {
+  font-family: var(--display); font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  line-height: 1.6; margin: 0;
+}
+
+/* ---- contacto ---- */
+
+.banda-contacto .contacto-caja { max-width: 52ch; }
+.banda-contacto h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.6rem); line-height: 1.1;
+  letter-spacing: -.02em; margin: 0 0 1rem;
+}
 
 /* ---------------------------------------------------- sobre mí */
 
