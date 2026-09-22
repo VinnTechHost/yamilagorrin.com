@@ -84,7 +84,7 @@ CREDENCIALES = [
     ('IWS 2025', 'Seleccionada en «Visiones del Agua»'),
     ('Art Week Santiago', 'Expositora y demostradora técnica, 2024 y 2025'),
     ('Santiago Sur 2025', 'Festival de Arte Contemporáneo'),
-    ('Academia CAPA', 'Formación avanzada en acuarela'),
+    ('Academia CAPA', 'Pintura en Acuarela, 216 horas · sede Lastarria'),
 ]
 
 
