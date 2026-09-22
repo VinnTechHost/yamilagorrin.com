@@ -204,24 +204,23 @@ def portada(entradas):
         p.append('    </div>\n  </section>\n\n')
 
     # 6. Contacto
-    # El cierre no anuncia disponibilidad: describe lo que recibe quien
-    # escribe, y le da la primera frase ya escrita.
+    # Los encargos salieron del sitio el 2026-09-22: no son el foco. Queda un
+    # cierre sin transacción, que es lo honesto mientras no haya qué vender.
     p.append('''  <section class="franja cierre">
     <div class="contenedor cierre-caja">
-      <h2>Un encargo</h2>
-      <p class="cierre-lema">Tú eliges el lugar que te importa. Yo decido cómo mirarlo.</p>
+      <h2>Seguir el trabajo</h2>
+      <p class="cierre-lema">Aquí cuento qué decido mientras pinto.</p>
       <p class="cierre-texto">
-        Escríbeme contándome qué lugar es y por qué, y te respondo con el proceso completo,
-        el plazo y el precio. Sin compromiso.
+        Cada obra pasa por las mismas preguntas: qué me detuvo, qué saqué, y qué hice
+        cuando dejó de gustarme. Eso es lo que escribo.
       </p>
       <p class="cierre-credencial">
         Seleccionada en «Visiones del Agua», International Watercolor Society 2025
       </p>
       <p class="portada-acciones">
-        <a class="boton" href="mailto:''' + CORREO +
-             '''?subject=Encargo%20de%20una%20obra">Escribir sobre un encargo</a>
-        <a class="boton boton-plano" href="mailto:''' + CORREO +
-             '''?subject=Salidas%20a%20pintar%20al%20aire%20libre">Salidas a pintar al aire libre</a>
+        <a class="boton" href="/blog/">Leer el blog</a>
+        <a class="boton boton-plano" href="''' + INSTAGRAM +
+             '''" rel="me noopener" target="_blank">@yamy_colors</a>
       </p>
     </div>
   </section>

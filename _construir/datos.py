@@ -15,7 +15,7 @@ INSTAGRAM = 'https://www.instagram.com/yamy_colors/'
 OBRAS = {
     'Valparaiso_Plein_air_Yamila_Gorrin': {
         'titulo': 'Valparaíso Plein Air', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel, in situ', 'medidas': '36 × 26 cm',
+        'tecnica': 'Acuarela sobre papel, in situ', 'medidas': '26 × 36 cm',
         'alt': 'Acuarela de Valparaíso pintada al aire libre por Yamila Gorrín'},
     'Dominicos_Yamila_Gorrin': {
         'titulo': 'Dominicos Plein Air', 'anio': '2025',
@@ -26,16 +26,16 @@ OBRAS = {
         'credencial': 'Seleccionada en «Visiones del Agua», International Watercolor Society 2025'},
     'Vina_del_mar_plein_air_Yamila_Gorrin': {
         'titulo': 'Viña del Mar Plein Air', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel, in situ', 'medidas': '36 × 26 cm',
+        'tecnica': 'Acuarela sobre papel, in situ', 'medidas': '26 × 36 cm',
         'alt': 'Acuarela de Viña del Mar pintada al aire libre por Yamila Gorrín'},
 
     'Mapocho_hoy_Yamila_gorrin': {
         'titulo': 'Mapocho Hoy', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '30 × 20 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '20 × 30 cm',
         'alt': 'Acuarela del río Mapocho en Santiago, pintada por Yamila Gorrín'},
     'Mapocho_historico_Yamila_gorrin': {
         'titulo': 'Mapocho Histórico', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '30 × 20 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '20 × 30 cm',
         'alt': 'Acuarela del río Mapocho en su época histórica, por Yamila Gorrín'},
     'Venesia_Yamila_Gorrin': {
         'titulo': 'Venesia', 'anio': '2025',
@@ -43,7 +43,7 @@ OBRAS = {
         'alt': 'Venesia, acuarela de canales venecianos por Yamila Gorrín'},
     'Urbano1_Yamila_Gorrin': {
         'titulo': 'Urbano I', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '29,8 × 23,8 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '23,8 × 29,8 cm',
         'alt': 'Urbano I, acuarela de paisaje urbano por Yamila Gorrín'},
     'Urbano2_Yamila_Gorrin': {
         'titulo': 'Urbano II', 'anio': '2025',
@@ -59,7 +59,7 @@ OBRAS = {
         'alt': 'Faro, acuarela de paisaje costero por Yamila Gorrín'},
     'Neruda1_Yamila_Gorrin': {
         'titulo': 'Neruda', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '29,8 × 23,8 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '23,8 × 29,8 cm',
         'alt': 'Neruda, acuarela inspirada en la casa del poeta, por Yamila Gorrín'},
     'atmosfera1': {
         'titulo': 'Añoranza', 'anio': '2023',
@@ -73,7 +73,7 @@ OBRAS = {
 
     'Tulipan1_Yamila_Gorrin': {
         'titulo': 'Tulipán I', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '30,5 × 45,5 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '45,5 × 30,5 cm',
         'alt': 'Tulipán I, acuarela botánica por Yamila Gorrín'},
     'Tulipan2_Yamila_Gorrin': {
         'titulo': 'Tulipán II', 'anio': '2025',
@@ -81,7 +81,7 @@ OBRAS = {
         'alt': 'Tulipán II, acuarela botánica de tulipanes en un jarrón, por Yamila Gorrín'},
     'Rosas_Yamila_Gorrin': {
         'titulo': 'Rosas', 'anio': '2025',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '36 × 26 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '26 × 36 cm',
         'alt': 'Rosas, acuarela botánica por Yamila Gorrín'},
     'atmosfera3': {
         'titulo': 'Atmósfera II', 'anio': '2023',
@@ -98,7 +98,7 @@ OBRAS = {
         'alt': 'Fuego, acuarela de gran formato sobre luz entre árboles, por Yamila Gorrín'},
     'otras1': {
         'titulo': 'Fantasy of tears', 'anio': '2024',
-        'tecnica': 'Acuarela sobre papel', 'medidas': '30 × 24 cm',
+        'tecnica': 'Acuarela sobre papel', 'medidas': '24 × 30 cm',
         'alt': 'Fantasy of tears, acuarela por Yamila Gorrín'},
     'otras2': {
         'titulo': 'Natura', 'anio': '2023',
