@@ -14,7 +14,7 @@ from datos import (DOMINIO, CORREO, INSTAGRAM, OBRAS, SERIES, REDIRECCIONES,
 from plantilla import cabeza, navegacion, PIE, markdown, resumen
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONTENIDO = os.path.join(RAIZ, 'contenido', 'blog')
+CONTENIDO = os.path.join(RAIZ, '_contenido', 'blog')
 escritos = []
 
 
@@ -284,6 +284,8 @@ def pagina_serie(s):
             p.append('      <li><a href="/' + x['ruta'] + '/">' +
                      html.escape(x['nombre']) + '</a></li>\n')
     p.append('    </ul>\n  </nav>\n</main>\n')
+    # Solo donde hay galería: el visor no tiene nada que hacer en el blog
+    p.append('<script src="/js/visor.js" defer></script>\n')
     p.append(PIE)
     escribir(os.path.join(s['ruta'], 'index.html'), ''.join(p))
 
@@ -291,7 +293,7 @@ def pagina_serie(s):
 # ------------------------------------------------------------- sobre mí
 
 def pagina_sobre_mi():
-    ruta = os.path.join(RAIZ, 'contenido', 'sobre-mi.html')
+    ruta = os.path.join(RAIZ, '_contenido', 'sobre-mi.html')
     cuerpo = io.open(ruta, encoding='utf-8').read().strip()
 
     ld = {"@context": "https://schema.org", "@type": "AboutPage",
