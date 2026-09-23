@@ -1,0 +1,8 @@
+# Claves de servicio de Firebase: nunca al repositorio
+*serviceAccount*.json
+*firebase-adminsdk*.json
+clave*.json
+
+# Python
+__pycache__/
+*.pyc

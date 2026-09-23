@@ -1,479 +1,717 @@
-/* --- RESET & VARIABLES --- */
+/* ============================================================
+   Yamila Gorrín — acuarela
+   Paleta derivada de la obra: papel húmedo, tinta, y gris de
+   Payne como acento (pigmento real de acuarela, no un azul
+   cualquiera). La obra manda; todo lo demás se aparta.
+   ============================================================ */
+
 :root {
-    --bg-body: #ffffff;
-    --bg-light: #f9f9f9;
-    --text-main: #1a1a1a;
-    --text-muted: #666;
-    --card-bg: #f8f8f8; /* Color de fondo del "marco" de la obra */
-    --card-border: #e5e5e5;
-    --accent: #2c3e50;
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Montserrat', sans-serif;
+  --papel:   #F3F5F4;
+  --nieve:   #FFFFFF;
+  --tinta:   #1B2428;
+  --apagado: #6B7A80;
+  --acento:  #3A5A6B;
+  --acento-vivo: #56808F;
+  --linea:   #DEE4E4;
+  --suave:   #E8EDEC;
+
+  --display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --cuerpo:  'Karla', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ancho: 1180px;
+  --radio: 3px;
 }
 
-html {
-    scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en el menú */
+/* La obra se ve sobre fondo claro siempre: el color de una acuarela
+   no se lee igual sobre negro. En modo oscuro se oscurece el marco
+   de la página, pero la obra conserva su paspartú claro. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel:   #14191C;
+    --nieve:   #1C2327;
+    --tinta:   #E8EDEE;
+    --apagado: #98A7AD;
+    --acento:  #8FB3C0;
+    --acento-vivo: #A9CBD6;
+    --linea:   #2A3338;
+    --suave:   #222B30;
+  }
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
 
 body {
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.6;
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--cuerpo);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* --- NAV BAR --- */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 3rem;
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(5px);
-    z-index: 100;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--acento); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--acento-vivo); }
+
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+
+.saltar {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--acento); color: #fff; padding: 10px 16px; z-index: 100;
+}
+.saltar:focus { left: 8px; top: 8px; }
+
+/* ---------------------------------------------------- cabecera */
+
+.cabecera {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1.5rem 2rem; flex-wrap: wrap;
+  padding: 1.1rem clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--papel) 90%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--linea);
 }
 
-.nav-brand {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 1.2rem;
-    text-transform: uppercase;
+.marca { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+.marca-nombre {
+  font-family: var(--display); font-weight: 600; font-size: 1.45rem;
+  letter-spacing: .01em; line-height: 1.1;
+}
+.marca-oficio {
+  font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--apagado); margin-top: .25rem;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
+.menu ul {
+  display: flex; flex-wrap: wrap; gap: .3rem 1.4rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.menu a {
+  text-decoration: none; color: var(--apagado);
+  font-size: .87rem; letter-spacing: .04em;
+  padding: .2rem 0; border-bottom: 1px solid transparent;
+}
+.menu a:hover { color: var(--tinta); border-bottom-color: var(--linea); }
+.menu a[aria-current="page"] { color: var(--tinta); border-bottom-color: var(--acento); }
+
+/* ---------------------------------------------------- portada */
+
+.portada {
+  display: grid; gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+}
+@media (min-width: 900px) { .portada { grid-template-columns: 1fr 1fr; } }
+
+.portada-lema {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.2rem, 5.6vw, 3.9rem);
+  line-height: 1.08; letter-spacing: -.015em;
+  margin: 0 0 1.3rem; text-wrap: balance;
+}
+.portada-lema em { font-style: italic; color: var(--acento); }
+
+.portada-eyebrow {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 1.2rem;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-main);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    transition: color 0.3s;
+.portada-texto { font-size: clamp(1.02rem, 1.9vw, 1.16rem); max-width: 48ch; margin: 0 0 1.1rem; }
+.portada-texto.apagado { color: var(--apagado); }
+
+.portada-acciones { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.8rem 0 0; }
+
+/* Cuatro accesos en vez de uno: la portada es el lugar donde alguien
+   decide adónde ir, y conviene que las opciones estén a la vista. */
+.portada-acciones .boton { padding: .68rem 1.25rem; font-size: .89rem; }
+
+.boton {
+  display: inline-block; text-decoration: none;
+  background: var(--acento); color: var(--papel);
+  font-size: .92rem; letter-spacing: .03em;
+  padding: .75rem 1.6rem; border-radius: 99px;
+  border: 1px solid var(--acento);
+  transition: opacity .25s ease;
+}
+.boton:hover { opacity: .88; color: var(--papel); }
+.boton-plano { background: none; color: var(--acento); border-color: var(--linea); }
+.boton-plano:hover { color: var(--acento); border-color: var(--acento); opacity: 1; }
+
+/* ---------------------------------------------------- credenciales */
+
+/* Una franja de señales de confianza. Sirve a quien llega por primera vez,
+   y es de lo primero que leen los motores de IA para decidir quién eres. */
+.credenciales {
+  border-top: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+  background: var(--nieve);
+}
+.contenedor-ancho { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+.credenciales ul {
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  list-style: none; margin: 0; padding: 0;
+}
+.credenciales li {
+  padding: 1.5rem 1.4rem 1.5rem 0;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.credenciales strong {
+  font-family: var(--display); font-size: 1.12rem; font-weight: 600;
+  letter-spacing: .01em;
+}
+.credenciales span { font-size: .84rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---------------------------------------------------- encabezados de sección */
+
+.encabezado-seccion { margin-bottom: 2.2rem; }
+.encabezado-seccion h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0; text-wrap: balance;
 }
 
-.nav-links a:hover { color: #999; }
-.btn-nav { border-bottom: 1px solid var(--text-main); }
+.enlace-flecha {
+  display: inline-block; text-decoration: none;
+  font-size: .92rem; letter-spacing: .03em;
+  border-bottom: 1px solid var(--linea); padding-bottom: 2px;
+}
+.enlace-flecha::after { content: ' →'; }
+.enlace-flecha:hover { border-bottom-color: var(--acento); }
 
-/* --- HERO --- */
-.hero {
-    text-align: center;
-    padding: clamp(3rem, 8vw, 5rem) 1rem 3.5rem;
+/* ---------------------------------------------------- el método */
+
+.metodo-caja {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+}
+@media (min-width: 860px) { .metodo-caja { grid-template-columns: 1fr 1.15fr; } }
+.metodo-figura { margin: 0; }
+.metodo-figura img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 18px 46px -28px rgba(27, 36, 40, .5);
+}
+.metodo h2 { margin: .3rem 0 1rem; font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.1; letter-spacing: -.015em; }
+.metodo p { max-width: 52ch; margin: 0 0 1rem; }
+
+/* ---------------------------------------------------- entradas del blog */
+
+.entradas {
+  display: grid; gap: 1.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  list-style: none; margin: 0 0 2rem; padding: 0;
+}
+.entradas-lista { grid-template-columns: 1fr; gap: 0; }
+
+.entrada-tarjeta {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--nieve); border: 1px solid var(--linea);
+  border-radius: var(--radio); padding: 1.4rem 1.5rem;
+  transition: border-color .25s ease, transform .25s ease;
+}
+.entradas-lista .entrada-tarjeta {
+  background: none; border: none; border-bottom: 1px solid var(--linea);
+  border-radius: 0; padding: 1.8rem 0;
+}
+.entrada-tarjeta:hover { border-color: var(--acento); transform: translateY(-2px); }
+.entradas-lista .entrada-tarjeta:hover { transform: none; border-bottom-color: var(--acento); }
+.entrada-tarjeta time {
+  display: block; font-size: .76rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--apagado); margin-bottom: .5rem;
+}
+.entrada-tarjeta h2, .entrada-tarjeta h3 {
+  font-family: var(--display); font-weight: 500;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.22;
+  margin: 0 0 .5rem; text-wrap: balance;
+}
+.entrada-tarjeta p { font-size: .94rem; color: var(--apagado); margin: 0; max-width: 62ch; }
+
+.fecha-entrada {
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 .6rem;
+}
+.entrada-imagen { margin: 0 0 2rem; }
+.entrada-imagen img { width: 100%; border-radius: var(--radio); }
+.volver-blog { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--linea); }
+
+/* ---------------------------------------------------- cierre */
+
+.cierre { background: var(--nieve); border-top: 1px solid var(--linea); }
+.cierre h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1rem;
+}
+.cierre-caja, .contacto-caja { max-width: 54ch; }
+
+/* La frase que resume el posicionamiento y, de paso, resuelve el cuello
+   de botella: en un encargo la decisión de qué pintar ya viene tomada. */
+.cierre-lema {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem); line-height: 1.4;
+  color: var(--acento); margin: 0 0 1.2rem; max-width: 40ch;
+}
+.cierre-texto { font-size: clamp(1.02rem, 2vw, 1.12rem); max-width: 50ch; margin: 0 0 1.4rem; }
+
+/* La credencial, a la vista en el momento de decidir y no a tres mil
+   píxeles de distancia, arriba del todo. */
+.cierre-credencial {
+  font-size: .82rem; color: var(--apagado); letter-spacing: .02em;
+  margin: 0 0 1.8rem; padding-top: 1rem; border-top: 1px solid var(--linea);
+  max-width: 44ch;
 }
 
-.hero h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 0.75rem;
+.portada-figura { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.portada-figura img {
+  /* La obra de portada es vertical: sin tope de altura empuja el texto
+     fuera de la pantalla y deja la composición descuadrada. */
+  width: auto; max-width: 100%; max-height: min(70vh, 620px);
+  border-radius: var(--radio);
+  box-shadow: 0 18px 50px -24px rgba(27, 36, 40, .5);
+}
+.portada-figura figcaption {
+  font-size: .8rem; color: var(--apagado); margin-top: .9rem;
+  letter-spacing: .02em; text-align: center; line-height: 1.6;
+}
+.portada-figura figcaption strong { color: var(--tinta); font-weight: 500; }
+
+/* La selección en IWS es la credencial más fuerte y hasta ahora no
+   aparecía en ninguna parte del sitio. */
+.credencial {
+  display: inline-block; margin-top: .35rem;
+  font-size: .75rem; color: var(--acento);
+  letter-spacing: .04em; max-width: 34ch;
 }
 
-/* El nombre va dentro del h1 (para buscadores y lectores de pantalla),
-   pero se muestra como una línea discreta sobre el título. */
-.hero-name {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1.25rem;
+/* ---------------------------------------------------- índice de series */
+
+.franja { border-top: 1px solid var(--linea); }
+
+.contenedor {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
 }
 
-.hero p {
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
+.rotulo {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0 0 1.8rem;
 }
 
-/* --- SECCIONES --- */
-/* --- CORRECCIÓN DE SCROLL (Para que el menú no tape el título) --- */
-section {
-    /* Esto crea un "colchón" invisible arriba de cada sección al hacer click en el link */
-    scroll-margin-top: 120px; 
+.series {
+  display: grid; gap: 1.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  list-style: none; margin: 0; padding: 0;
+}
+.serie-tarjeta { display: block; text-decoration: none; color: inherit; }
+
+/* Una obra NUNCA se recorta. Antes esto usaba object-fit: cover y cortaba
+   las acuarelas por donde cayera, que es falsear la obra. Ahora cada una
+   se ve entera dentro de un paspartú, como en una sala. */
+.serie-marco {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  background: var(--nieve);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: clamp(.6rem, 1.4vw, 1rem);
+  overflow: hidden;
+  transition: border-color .35s ease, box-shadow .35s ease;
+}
+/* La obra se posiciona dentro del marco en vez de depender de alturas
+   en porcentaje, que no se resuelven contra una caja con aspect-ratio.
+   `contain` la encaja entera: ni recortada ni deformada. */
+.serie-marco img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: inherit;
+  object-fit: contain;
+  transition: transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.serie-tarjeta:hover .serie-marco {
+  border-color: color-mix(in srgb, var(--acento) 35%, var(--linea));
+  box-shadow: 0 14px 34px -24px rgba(27, 36, 40, .5);
+}
+.serie-tarjeta:hover .serie-marco img { transform: scale(1.02); }
+.serie-nombre {
+  font-family: var(--display); font-size: 1.42rem; font-weight: 400;
+  margin: .85rem 0 .2rem;
+}
+.serie-pie { font-size: .78rem; color: var(--apagado); letter-spacing: .04em; margin: 0; }
+
+/* ---------------------------------------------------- página de serie */
+
+main { display: block; }
+
+.intro-serie {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.2rem);
 }
 
-/* Ajuste específico para móviles si el menú es más chico o grande */
-@media (max-width: 768px) {
-    section {
-        scroll-margin-top: 100px;
-    }
+.migas { font-size: .78rem; color: var(--apagado); margin: 0 0 1.4rem; letter-spacing: .03em; }
+.migas a { color: var(--apagado); text-decoration: none; }
+.migas a:hover { color: var(--tinta); text-decoration: underline; }
+.migas span { margin: 0 .45rem; opacity: .5; }
+
+.intro-serie h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.02em;
+  margin: 0 0 1.2rem; text-wrap: balance;
 }
 
-.collection-section {
-    padding: 2rem 3rem;
-    max-width: 1400px;
-    margin: 0 auto;
+.entradilla {
+  font-size: clamp(1.05rem, 2vw, 1.22rem); line-height: 1.6;
+  max-width: 60ch; margin: 0 0 1rem;
+}
+.apunte {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.5;
+  color: var(--acento); max-width: 56ch;
+  margin: 0 0 1.6rem; padding-left: 1.1rem;
+  border-left: 2px solid var(--linea);
+}
+.conteo {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); margin: 0;
 }
 
-.bg-light { background-color: var(--bg-light); width: 100%; max-width: 100%; }
-
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
+.galeria {
+  display: grid; gap: clamp(1.8rem, 3.5vw, 3rem);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
 }
 
-.section-header h2 {
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+.obra { margin: 0; display: flex; flex-direction: column; }
+
+/* Paspartú de proporción fija. Las obras mezclan vertical y horizontal:
+   sin un marco común, una vertical estira su tarjeta y las fichas dejan
+   de alinearse. Así se comporta una sala de exposición real. */
+.obra-marco {
+  background: var(--nieve);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: clamp(.9rem, 2vw, 1.5rem);
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  transition: box-shadow .35s ease, border-color .35s ease;
+}
+.obra:hover .obra-marco {
+  border-color: color-mix(in srgb, var(--acento) 35%, var(--linea));
+  box-shadow: 0 16px 40px -26px rgba(27, 36, 40, .55);
+}
+.obra-marco img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  padding: inherit;
+  object-fit: contain;
+  border-radius: 1px;
 }
 
-.section-header p { color: var(--text-muted); font-size: 0.95rem; }
-
-/* --- GRID (Modificado para alinear arriba) --- */
-.grid-uniforme {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;               /* <--- El espacio perfecto entre cuadros */
-    justify-content: center; /* Centra todo el grupo en la pantalla */
-    width: 100%;
-    margin-bottom: 40px;     /* Un poco de aire antes de la siguiente sección */
+.obra figcaption { padding: .85rem .15rem 0; }
+.obra h3 {
+  font-family: var(--display); font-weight: 500; font-size: 1.24rem;
+  line-height: 1.25; margin: 0 0 .25rem; text-wrap: balance;
+}
+.ficha {
+  font-size: .8rem; color: var(--apagado); margin: 0;
+  letter-spacing: .02em; font-variant-numeric: tabular-nums;
 }
 
-/* --- TARJETAS DE PRODUCTO (Estilo Marco Galería) --- */
-.product-card {
-    /* Propiedades Flex para que respeten el tamaño */
-    flex: 0 1 350px;       /* Intenta medir 350px, pero puede encogerse */
-    
-    width: 100%;           /* Ocupa el ancho disponible hasta el max-width */
-    max-width: 400px;      /* No deja que se hagan gigantes */
-    
-    /* TUS ESTILOS VISUALES (Déjalos igual) */
-    cursor: pointer;
-    background-color: var(--card-bg); 
-    border: 1px solid var(--card-border);
-    padding: 15px;
-    
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* Importante: Sin márgenes externos porque el 'gap' de arriba ya se encarga */
-    margin: 0; 
+/* ---------------------------------------------------- otras series */
+
+.siguientes {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
+}
+.siguientes h2 {
+  font-size: .73rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); font-weight: 500;
+  margin: 0 0 1rem; padding-top: 2rem; border-top: 1px solid var(--linea);
+}
+.siguientes ul {
+  display: flex; flex-wrap: wrap; gap: .6rem .9rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.siguientes a {
+  display: inline-block; text-decoration: none;
+  font-size: .88rem; color: var(--apagado);
+  padding: .45rem 1.1rem; border: 1px solid var(--linea); border-radius: 99px;
+}
+.siguientes a:hover { color: var(--tinta); border-color: var(--acento); }
+
+/* ============================================================
+   Biografía — bandas horizontales alternadas.
+   Una columna larga de texto se lee como un muro. Alternando texto
+   y obra, y cambiando el ritmo con citas anchas, la misma cantidad
+   de contenido se recorre sin cansancio.
+   ============================================================ */
+
+.biografia { display: block; }
+.biografia .migas {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) 0;
 }
 
-.img-container {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    width: 100%;
+/* ---- presentación ---- */
+
+.bio-portada {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 3rem) clamp(2.5rem, 6vw, 4rem);
+}
+@media (min-width: 820px) { .bio-portada { grid-template-columns: 340px 1fr; } }
+
+.bio-retrato { margin: 0; }
+.bio-retrato img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 20px 50px -28px rgba(27, 36, 40, .55);
 }
 
-.product-card img {
-    width: 100%;
-    height: auto; 
-    display: block;
-    /* Borde muy sutil en la imagen misma */
-    border-radius: 1px; 
+.bio-entrada h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.3rem, 6vw, 3.6rem); line-height: 1.04;
+  letter-spacing: -.02em; margin: 0 0 1.1rem; text-wrap: balance;
+}
+.bio-entrada .entradilla { max-width: 46ch; margin: 0 0 2rem; }
+
+.bio-datos { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+@media (min-width: 560px) { .bio-datos { grid-template-columns: repeat(3, 1fr); gap: 1.4rem; } }
+.bio-datos li {
+  display: flex; flex-direction: column; gap: .25rem;
+  padding-top: .8rem; border-top: 1px solid var(--linea);
+}
+.bio-datos strong { font-family: var(--display); font-size: 1.05rem; font-weight: 600; }
+.bio-datos span { font-size: .8rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---- bandas de dos columnas, alternadas ---- */
+
+.banda-dos {
+  display: grid; gap: clamp(1.8rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr; align-items: center;
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--linea);
+}
+@media (min-width: 820px) {
+  .banda-dos { grid-template-columns: 1fr 1fr; }
+  /* La obra alterna de lado en cada banda, para que la página no caiga
+     en un patrón de dos carriles fijos. */
+  .banda-dos[data-orden="invertido"] .banda-figura { order: -1; }
 }
 
-/* Etiquetas (Vendido, Nuevo) */
-.badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: white;
-    padding: 4px 10px;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.banda-texto h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0 0 1.1rem; text-wrap: balance;
+}
+.banda-texto p { max-width: 54ch; margin: 0 0 1rem; }
+
+.banda-figura { margin: 0; }
+.banda-figura img {
+  width: 100%; border-radius: var(--radio);
+  box-shadow: 0 18px 46px -28px rgba(27, 36, 40, .5);
+}
+.banda-figura figcaption {
+  font-size: .78rem; color: var(--apagado);
+  margin-top: .7rem; letter-spacing: .02em;
 }
 
-.badge.vendido { background: #e0e0e0; color: #777; }
-.badge.reservado { background: #fff3cd; color: #856404; }
+/* ---- cita a todo el ancho ---- */
 
-/* Ajustes de Texto dentro del marco */
-.info {
-    text-align: left;
-    padding-top: 0.2rem; 
+.cita-ancha { background: var(--nieve); border-top: 1px solid var(--linea); }
+.cita-caja {
+  max-width: 62ch; margin: 0 auto;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+.cita-titulo {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1.4rem;
+}
+.cita-cuerpo { margin: 0 0 1.6rem; }
+.cita-remate {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.45;
+  color: var(--acento); margin: 0;
 }
 
-.info h3 {
-    font-size: 1.05rem;
-    font-weight: 500;
-    font-family: var(--font-heading);
-    margin-bottom: 0.4rem;
-    color: #222;
+/* ---- banda plena ---- */
+
+.banda-plena {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--linea);
+}
+.banda-plena > h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.7rem); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0 0 .6rem; text-wrap: balance;
+}
+.banda-bajada { color: var(--apagado); margin: 0 0 2.4rem; max-width: 52ch; }
+
+/* ---- los dos oficios ---- */
+
+.dos-modos { display: grid; gap: clamp(1.8rem, 4vw, 3rem); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .dos-modos { grid-template-columns: 1fr 1fr; } }
+.modo figure { margin: 0 0 1.2rem; }
+.modo figure img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center;
+  border-radius: var(--radio);
+}
+.modo h3 {
+  font-family: var(--display); font-weight: 500; font-size: 1.5rem;
+  margin: 0 0 .6rem;
+}
+.modo p { margin: 0 0 .9rem; }
+
+/* ---- la postura ---- */
+
+.banda-postura { background: var(--suave); border-top: 1px solid var(--linea); }
+.postura-caja {
+  max-width: 58ch; margin: 0 auto;
+  padding: clamp(3rem, 7vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+}
+.postura-caja h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.5vw, 2.7rem); line-height: 1.08;
+  letter-spacing: -.02em; margin: 0 0 1.2rem;
 }
 
-.price {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-family: var(--font-body);
+/* ---- formación y trayectoria en paralelo ---- */
+
+.dos-listas { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .dos-listas { grid-template-columns: 1fr 1fr; } }
+.dos-listas h2 {
+  font-family: var(--display); font-weight: 400; font-size: 1.6rem;
+  margin: 0 0 1.2rem; padding-bottom: .7rem; border-bottom: 1px solid var(--linea);
+}
+.lista-hitos { list-style: none; margin: 0; padding: 0; }
+.lista-hitos li {
+  display: flex; flex-direction: column; gap: .2rem;
+  padding: .9rem 0; border-bottom: 1px solid var(--linea);
+}
+.lista-hitos strong { font-size: .97rem; font-weight: 600; }
+.lista-hitos span { font-size: .85rem; color: var(--apagado); line-height: 1.5; }
+
+/* ---- declaración ---- */
+
+.banda-declaracion { background: var(--nieve); border-top: 1px solid var(--linea); }
+.declaracion-caja {
+  max-width: 64ch; margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+.declaracion-caja p:last-child {
+  font-family: var(--display); font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  line-height: 1.6; margin: 0;
 }
 
-.price.sold { text-decoration: line-through; opacity: 0.6; }
+/* ---- contacto ---- */
 
-/* --- FOOTER (Estilo Oscuro) --- */
-footer {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    text-align: center;
-    padding: 5rem 1rem;
-    margin-top: 5rem;
+.banda-contacto .contacto-caja { max-width: 52ch; }
+.banda-contacto h2 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(1.9rem, 4.2vw, 2.6rem); line-height: 1.1;
+  letter-spacing: -.02em; margin: 0 0 1rem;
 }
 
-footer .btn-outline {
-    display: inline-block;
-    border: 1px solid #ffffff;
-    padding: 10px 25px;
-    text-decoration: none;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    margin: 1.5rem 0;
-    transition: all 0.3s;
+/* ---------------------------------------------------- sobre mí */
+
+.ensayo {
+  max-width: 68ch; margin: 0 auto;
+  padding: clamp(2.2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem);
+}
+.ensayo h1 {
+  font-family: var(--display); font-weight: 300;
+  font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.05;
+  letter-spacing: -.02em; margin: 0 0 1.5rem;
+}
+.ensayo h2 {
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(1.5rem, 3.2vw, 2rem); line-height: 1.2;
+  margin: 2.8rem 0 .9rem; text-wrap: balance;
+}
+.ensayo p { margin: 0 0 1.15rem; }
+.ensayo .destacado {
+  font-family: var(--display); font-style: italic;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem); line-height: 1.4;
+  color: var(--acento); margin: 2rem 0;
+}
+.ensayo ul { margin: 0 0 1.3rem; padding-left: 1.2rem; }
+.ensayo li { margin-bottom: .5rem; }
+
+/* El retrato acompaña al texto, no lo sustituye. A ancho completo la foto
+   es vertical y muy alta, y empuja la biografía fuera de la pantalla. */
+.retrato { margin: 0 0 1.8rem; }
+.retrato img {
+  width: 100%; max-width: 260px; height: auto;
+  border-radius: var(--radio);
+  box-shadow: 0 14px 36px -24px rgba(27, 36, 40, .5);
+}
+.retrato figcaption { font-size: .78rem; color: var(--apagado); margin-top: .6rem; }
+
+@media (min-width: 720px) {
+  .retrato {
+    float: right; width: 240px;
+    margin: .4rem 0 1.4rem 2.2rem;
+    shape-outside: margin-box;
+  }
+  .retrato img { max-width: 100%; }
 }
 
-footer .btn-outline:hover {
-    background: #ffffff;
-    color: #1a1a1a;
+.contacto {
+  margin-top: 3rem; padding: 1.6rem 1.8rem;
+  background: var(--nieve); border: 1px solid var(--linea); border-radius: var(--radio);
+}
+.contacto p { margin: 0 0 .5rem; }
+.contacto p:last-child { margin-bottom: 0; }
+
+/* ---------------------------------------------------- pie */
+
+.pie { border-top: 1px solid var(--linea); background: var(--suave); }
+.pie-caja {
+  max-width: var(--ancho); margin: 0 auto;
+  padding: clamp(2.5rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+}
+.pie-lema {
+  font-family: var(--display); font-style: italic; font-weight: 300;
+  font-size: clamp(1.3rem, 3vw, 1.85rem); line-height: 1.3;
+  margin: 0 0 2.4rem; max-width: 30ch;
 }
 
-footer .socials {
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    color: #dddddd;
+/* Tres columnas en horizontal. En móvil se apilan, que es lo único
+   que cabe, pero en cuanto hay ancho se reparten. */
+.pie-columnas {
+  display: grid; gap: 2rem 3rem;
+  grid-template-columns: 1fr;
 }
+@media (min-width: 560px) { .pie-columnas { grid-template-columns: repeat(3, 1fr); } }
 
-/* Link de Instagram Alineado */
-footer .socials a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
+.pie-rotulo {
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apagado); font-weight: 600; margin: 0 0 .9rem;
 }
+.pie-lista { list-style: none; margin: 0; padding: 0; }
+.pie-lista li { margin-bottom: .5rem; font-size: .89rem; color: var(--apagado); line-height: 1.5; }
+.pie-lista a { color: var(--apagado); text-decoration: none; border-bottom: 1px solid transparent; }
+.pie-lista a:hover { color: var(--tinta); border-bottom-color: var(--linea); }
 
-footer .socials a:hover {
-    opacity: 0.8;
-    transform: translateY(-2px);
-}
+/* ---------------------------------------------------- 404 */
 
-footer .copyright {
-    font-size: 0.8rem;
-    color: #888888;
-}
-
-/* --- LIGHTBOX (MODAL) --- */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    padding-top: 40px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.92); 
-    backdrop-filter: blur(8px);
-}
-
-.modal-content {
-    margin: auto;
-    display: block;
-    max-width: 95%;
-    max-height: 85vh;
-    width: auto;
-    height: auto;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    border: 1px solid #333;
-    animation-name: zoom;
-    animation-duration: 0.3s;
-}
-
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 15px 0;
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 45px;
-    font-weight: 100;
-    transition: 0.3s;
-    cursor: pointer;
-    z-index: 1001;
-    line-height: 1;
-}
-
-.close:hover { color: #bbb; }
-
-@keyframes zoom {
-    from {transform:scale(0.95); opacity: 0;} 
-    to {transform:scale(1); opacity: 1;}
-}
-
-@media only screen and (max-width: 700px){
-    .modal-content { width: 100%; }
-}
-
-/* --- FOTO DE PERFIL ARTISTA --- */
-.artist-portrait {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin: 0 auto 2rem;
-    border: 4px solid #fff;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .navbar { padding: 1rem; flex-direction: column; gap: 1rem; }
-    .hero-name { font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 1rem; }
-    .collection-section { padding: 3rem 1.5rem; }
-    .grid-uniforme { gap: 1.5rem; }
-}
-
-/* --- ESTILOS DEL MENÚ DESPLEGABLE (DROPDOWN) --- */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none; /* Oculto por defecto */
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 200px; /* Ancho del menú desplegado */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1000; /* Asegura que flote sobre las fotos */
-    border-radius: 4px;
-    padding: 10px 0;
-    top: 100%; /* Aparece justo debajo del botón */
-    left: 0;
-    border: 1px solid #eee;
-}
-
-.dropdown-content a {
-    color: var(--text-main);
-    padding: 12px 20px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 0.85rem;
-    border-bottom: 1px solid #f9f9f9;
-}
-
-.dropdown-content a:hover {
-    background-color: #f5f5f5;
-    color: #000;
-}
-
-/* Mostrar el menú al pasar el mouse sobre "Series de Acuarelas" */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Ajuste visual para la flechita */
-.dropbtn {
-    cursor: default; /* Para indicar que es un menú */
-}
-
-/* --- ESTILOS DE LA HAMBURGUESA --- */
-.hamburger {
-    display: none; /* Oculto en escritorio */
-    cursor: pointer;
-}
-
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--text-main); /* Usa el color de texto principal */
-}
-
-/* --- MEDIA QUERY PARA MÓVIL (Menú Hamburguesa) --- */
-@media (max-width: 768px) {
-    .hamburger {
-        display: block; /* Mostrar botón en móvil */
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0; /* Efecto al abrir: oculta la del medio */
-    }
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg); /* Cruza la primera */
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg); /* Cruza la última */
-    }
-
-    .nav-menu {
-        position: fixed;
-        left: -100%; /* Oculto a la izquierda de la pantalla */
-        top: 70px; /* Altura aproximada del navbar */
-        gap: 0;
-        flex-direction: column;
-        background-color: #ffffff; /* Fondo blanco sólido */
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        padding: 2rem 0;
-    }
-
-    .nav-menu.active {
-        left: 0; /* Al activar, entra a la pantalla */
-    }
-
-    .nav-menu li {
-        margin: 16px 0;
-    }
-
-    /* Ajuste del Dropdown en móvil para que no flote raro */
-    .dropdown-content {
-        position: static; /* Ya no flota, empuja el contenido */
-        box-shadow: none;
-        border: none;
-        background-color: #f9f9f9;
-        display: none; /* Oculto hasta hover/click */
-        width: 100%;
-    }
-    
-    /* Pequeño truco: en móvil mostramos el dropdown siempre si está dentro del menú */
-    .dropdown:hover .dropdown-content {
-        display: block; 
-    }
-}
+.perdida { max-width: 46ch; margin: 0 auto; padding: clamp(4rem, 12vw, 8rem) 1.5rem; text-align: center; }
+.perdida h1 { font-family: var(--display); font-weight: 300; font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 1rem; }
